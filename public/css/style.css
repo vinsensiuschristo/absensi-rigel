@@ -134,6 +134,12 @@ Last Updated: Nov 25, 2019
   padding: 0;
 }
 
+/* logoutForm */
+.logoutForm {
+  display: inline;
+}
+
+
 body {
   background-color: #f5f6fa;
   color: #718096;
