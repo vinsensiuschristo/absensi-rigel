@@ -258,7 +258,6 @@
                                                 <select class="form-select" aria-label="Default select example" name="absen" onChange="check();" id="status">
                                                     <option selected>Kehadiran</option>
                                                     <option value="Hadir">Hadir</option>
-                                                    <option value="Sakit">Sakit</option>
                                                     <option value="Izin">Izin</option>
                                                   </select>
                                             </div>

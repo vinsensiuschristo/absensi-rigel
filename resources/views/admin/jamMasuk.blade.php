@@ -234,8 +234,8 @@
                                                             <td>{{ $waktus->waktu }}</td>
                                                             <td>
                                                                 <div class="actions ml-3">
-                                                                    <a href="{{ route('admin.jam-masuk.edit', $waktus->id) }}" class="action-item mr-2" data-bs-toggle="tooltip" title="Delete">
-                                                                        <i class="fa fa-trash"></i>
+                                                                    <a href="{{ route('admin.jam-masuk.edit', $waktus->id) }}" class="action-item mr-2" data-bs-toggle="tooltip" title="Edit">
+                                                                        <i class="fa fa-edit"></i>
                                                                     </a>
                                                                 </div>
                                                             </td>

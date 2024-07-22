@@ -12,7 +12,7 @@ class AdminController extends Controller
     public function index()
     {
         $absenData = Absent::join('users', 'absents.user_id', '=', 'users.id')
-            ->select('absents.*', 'users.name')
+            ->select('absents.*', 'users.name', 'users.npm')
             ->get();
         return view('admin.index', ['absents' => $absenData]);
     }

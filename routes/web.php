@@ -20,12 +20,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/dashboard', [AbsenController::class, 'store'])->name('absen.store');
 
     // admin
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.index');
-    Route::get('/admin/user', [AdminController::class, 'userList'])->name('admin.user');
-    Route::delete('/admin/user/{id}', [AdminController::class, 'deleteUser'])->name('admin.user.delete');
-    Route::get('/admin/jammasuk', [AdminController::class, 'jamMasuk'])->name('admin.jam-masuk');
-    Route::get('/admin/jammasuk/{id}', [AdminController::class, 'jamMasukEdit'])->name('admin.jam-masuk.edit');
-    Route::put('/admin/jammasuk/{id}', [AdminController::class, 'jamMasukUpdate'])->name('admin.jam-masuk.update');
+    Route::get('/dosen/dashboard', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/dosen/user', [AdminController::class, 'userList'])->name('admin.user');
+    Route::delete('/dosen/user/{id}', [AdminController::class, 'deleteUser'])->name('admin.user.delete');
+    Route::get('/dosen/jammasuk', [AdminController::class, 'jamMasuk'])->name('admin.jam-masuk');
+    Route::get('/dosen/jammasuk/{id}', [AdminController::class, 'jamMasukEdit'])->name('admin.jam-masuk.edit');
+    Route::put('/dosen/jammasuk/{id}', [AdminController::class, 'jamMasukUpdate'])->name('admin.jam-masuk.update');
 });
 
 require __DIR__ . '/auth.php';

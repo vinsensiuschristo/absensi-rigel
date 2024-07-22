@@ -222,6 +222,7 @@
                                             <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
                                                 <thead>
                                                     <tr>
+                                                        <th>NPM</th>
                                                         <th>Name</th>
                                                         <th>Waktu Absensi</th>
                                                         <th>Foto</th>
@@ -234,6 +235,7 @@
                                                 <tbody>
                                                     @foreach($absents as $absent)
                                                         <tr>
+                                                            <td>{{ $absent->npm }}</td>
                                                             <td>{{ $absent->name }}</td>
                                                             <td>{{ $absent->created_at }}</td>
                                                             <td><a href="{{ asset('storage/image/uploads/' . $absent->photo) }}" target="_blank"><img src="{{ asset('storage/image/uploads/' . $absent->photo) }}" alt="photo" width="200px"></a></td>
