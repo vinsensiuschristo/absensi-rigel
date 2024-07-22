@@ -9,16 +9,19 @@
     <title>Aplikasi Kehadiran</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="img/core-img/favicon.png">
+    <link rel="icon" href="../img/core-img/favicon.png">
 
     <!-- Plugins css -->
-    <link rel="stylesheet" href="{{ asset('css/mini-event-calendar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/mini-event-calendar.min.css') }}">
 
     <!-- Master Stylesheet CSS -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/style.css') }}">
 
-    {{-- WEBCAM --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+    <!-- These plugins only need for the run this page -->
+    <link rel="stylesheet" href="{{ asset('../css/dataTable/datatables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/dataTable/responsive.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/dataTable/buttons.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/dataTable/select.bootstrap4.css') }}">
 
 </head>
 
@@ -103,7 +106,9 @@
                     <nav>
                         <ul class="sidebar-menu" data-widget="tree">
                             <li class="menu-header-title">Dashboard</li>
-                            <li class="active"><a href="{{ route('dashboard') }}"><i class='bx bx-user-circle'></i><span>Absensi</span></a></li>
+                            <li><a href="{{ route('admin.index') }}"><i class='bx bx-home-heart'></i><span>Dashboard</span></a></li>
+                            <li><a href="{{ route('admin.user') }}"><i class='bx bx-user-circle'></i><span>User</span></a></li>
+                            <li class="active"><a href="{{ route('admin.jam-masuk') }}"><i class='fa fa-clock-o'></i><span>Jam Masuk</span></a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -179,10 +184,9 @@
                     <div class="container-fluid">
                         <div class="row">
 
-                            {{-- cek if message --}}
-                            @if (session('status'))
+                            @if(session('success'))
                                 <div class="alert alert-success" role="alert">
-                                    <strong>Sukses</strong> Absensi Berhasil
+                                    {{ session('success') }}
                                 </div>
                             @endif
 
@@ -199,7 +203,6 @@
 
                                                 <!-- Heading -->
                                                 <span class="font-24 text-dark mb-0" id="current-time">
-                                                   
                                                 </span>
                                             </div>
                                         </div>
@@ -207,72 +210,50 @@
                                 </div>
                             </div>
 
+
+                            {{-- body --}}
+
+                            <div class="row">
+                                <div class="col-12 box-margin">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title mb-2">Daftar Absensi</h4>
+
+                                            <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Waktu Absensi</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+
+
+                                                <tbody>
+                                                    @foreach($waktu as $waktus)
+                                                        <tr>
+                                                            <td>{{ $waktus->waktu }}</td>
+                                                            <td>
+                                                                <div class="actions ml-3">
+                                                                    <a href="{{ route('admin.jam-masuk.edit', $waktus->id) }}" class="action-item mr-2" data-bs-toggle="tooltip" title="Delete">
+                                                                        <i class="fa fa-trash"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    
+                                                </tbody>
+                                            </table>
+
+                                        </div> <!-- end card body-->
+                                    </div> <!-- end card -->
+                                </div><!-- end col-->
+                            </div>
+
                             </div>
                         </div>
                         <!-- / .row -->
-
-                        <div class="row">
-                            <!-- Latest Update Area -->
-                            <div class="col-lg-4 box-margin">
-                                <div class="card card-body">
-                                        <h4 class="card-title">Detail User</h4>
-                                        <div class="row">
-                                            <div class="col-sm-12 col-xs-12">
-                                                <form>
-                                                    <div class="form-group mb-2">
-                                                        <label for="NPM">NPM</label>
-                                                        <input type="text" class="form-control" id="NPM" disabled value="{{ Auth::user()->npm }}">
-                                                    </div>
-                                                    <div class="form-group mb-2">
-                                                        <label for="exampleInputEmail111">User Name</label>
-                                                        <input type="text" class="form-control" id="exampleInputEmail111" placeholder="Enter Username" disabled value="{{ Auth::user()->name }}">
-                                                    </div>
-                                                    <div class="form-group mb-2">
-                                                        <label for="exampleInputEmail12">Email address</label>
-                                                        <input type="text" class="form-control" id="exampleInputEmail111" placeholder="Enter Username" disabled value="{{ Auth::user()->email }}">
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                </div>
-                            </div>
-
-                            <!-- Order Summary -->
-                            <div class="col-lg-8 col-12 box-margin height-card">
-                                <div class="card">
-                                    <div class="card-body">
-                                        {{-- FORM BUAT ABSEN BARU --}}
-                                        <form method="POST" action="{{ route('absen.store') }}">
-                                            @csrf
-                                            <div class="form-group mb-3">
-                                                <h5 class="card-title">Absen</h5>
-                                                <div id="my_camera" style="width: 100%;height: 240px;">
-                                                </div>
-                                                <br>
-                                                <input type=button value="Take Snapshot" onClick="take_snapshot()"></button>
-                                                <input type="text" name="image" class="image-tag" hidden>
-                                                <br><br>
-                                                <label class=""><h6>*Silahkan tekan tombol untuk mencapture wajah anda, jika Status Kehadiran Sakit atau Izin tolong Fotokan Surat Izin / Sakit</h6></label>
-                                            </div>
-                                            <div class="form-group mb-3">
-                                                <select class="form-select" aria-label="Default select example" name="absen" onChange="check();" id="status">
-                                                    <option selected>Kehadiran</option>
-                                                    <option value="Hadir">Hadir</option>
-                                                    <option value="Sakit">Sakit</option>
-                                                    <option value="Izin">Izin</option>
-                                                  </select>
-                                            </div>
-                                            <div class="form-group mb-3">
-                                                <input type="text" class="form-control" id="keterangan" name="keterangan"
-                                                    placeholder="Keterangan" style="visibility:hidden">
-                                            </div>
-                                            
-                                            <button type="submit" class="btn btn-primary mr-2">Absen</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- Footer Area -->
@@ -311,46 +292,40 @@
 
 
     <!-- Plugins Js -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/bundle.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bundle.js"></script>
 
     <!-- Active JS -->
-    <script src="js/settings.js"></script>
-    <script src="js/scrool-bar.js"></script>
-    <script src="js/todo-list.js"></script>
+    <script src="../js/settings.js"></script>
+    <script src="../js/scrool-bar.js"></script>
+    <script src="../js/todo-list.js"></script>
     <!-- DATE TIME -->
-    <script src="js/waktu.js"></script>
-    <script src="js/active.js"></script>
+    <script src="../js/waktu.js"></script>
+    <script src="../js/active.js"></script>
 
     <!-- Inject JS -->
-    <script src="js/mini-event-calendar.min.js"></script>
-    <script src="js/mini-calendar-active.js"></script>
-    <script src="js/apexchart.min.js"></script>
-    <script src="js/dashboard-active.js"></script>
-    <script src="js/dashboard-active.js"></script>
-    <script src="js/absent/absent.js"></script>
+    <script src="../js/mini-event-calendar.min.js"></script>
+    <script src="../js/mini-calendar-active.js"></script>
+    <script src="../js/apexchart.min.js"></script>
+    <script src="../js/dashboard-active.js"></script>
+    <script src="../js/dashboard-active.js"></script>
+    <script src="../js/absent/absent.js"></script>
 
-    <script>
-        function check() {
-            var el = document.getElementById("status");
-            var str = el.options[el.selectedIndex].text;
-            if(str !== "Hadir") {
-                show();
-            }else {
-                hide();
-            }
-
-        }
-        function hide(){
-            document.getElementById('keterangan').style.visibility='hidden';
-        }
-        function show(){
-            document.getElementById('keterangan').style.visibility='visible';
-        }
-
-    </script>
-
+    <!-- Inject JS -->
+    <script src="{{ asset('../js/dataTable/jquery.datatables.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/datatables.bootstrap4.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/datatable-responsive.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/datatable-button.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/button.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/button.html5.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/button.flash.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/button.print.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/datatables.keytable.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/datatables.select.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/demo.datatable-init.js') }}"></script>
+    
 </body>
 
 </html>

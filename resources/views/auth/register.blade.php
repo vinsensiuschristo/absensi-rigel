@@ -105,6 +105,23 @@
                                 <form method="POST" action="{{ route('register') }}">
                                     @csrf
 
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+
+                                    <div class="form-group mb-3">
+                                        <label for="npm">NPM</label>
+                                        <input class="form-control" type="text" id="npm" placeholder="NPM"
+                                        name="npm" :value="old('npm')" required autofocus autocomplete="npm">
+                                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                                    </div>
+
                                     <div class="form-group mb-3">
                                         <label for="fullname">Name</label>
                                         <input class="form-control" type="text" id="fullname" placeholder="Name"

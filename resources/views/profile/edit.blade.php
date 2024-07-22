@@ -129,7 +129,6 @@
                     <nav>
                         <ul class="sidebar-menu" data-widget="tree">
                             <li class="menu-header-title">Dashboard</li>
-                            <li><a href="#"><i class='bx bx-home-heart'></i><span>Dashboard</span></a></li>
                             <li class="active"><a href="{{ route('dashboard') }}"><i class='bx bx-user-circle'></i><span>Absensi</span></a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
@@ -216,37 +215,9 @@
                 </div>
                 @endif
 
-                            <div class="col-12 col-md-4">
-                                <div class="card mb-30">
-                                    <img src="{{ asset('image/4.jpg') }}" class="profile-cover-img" alt="thumb">
-                                    <div class="card-body text-center">
-                                        <h6 class="font-20 mb-1">{{ Auth::user()->name }}</h6>
-                                        <p class="font-13 text-dark">Web Developer</p>
-                                        <p class="description px-4">Ini bisa dipake atau engga, kalau mau dipake ini bisa diisi penjelasan di ilangin juga gapapa</p>
-                                    <div class="card address mb-30">
-                                        <div class="card-body">
-                                            <h4 class="font-16 mb-15">Contact :</h4>
-                                            <div class="mt-0 d-flex align-items-center">
-                                                <i class="fa fa-home pr-2"></i>
-                                                <h6 class="font-14 mb-0">{{ Auth::user()->email }}</h6>
-                                            </div>
-                                            <div class="mt-3 d-flex align-items-center">
-                                                <i class="fa fa-phone pr-2"></i>
-                                                <h6 class="font-14 mb-0">+91 656 887 245</h6>
-                                            </div>
-                                            <div class="mt-3 d-flex align-items-center">
-                                                <i class="fa fa-map pr-2 align-self-start"></i>
-                                                <h6 class="font-14 mb-0">Van Barneveldlaan 98, Netherlands</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <!-- ./profile -->
-                            </div>
                             
                             {{-- Data User --}}
-                            <div class="col-12 col-md-8">
+                            <div class="col-12 col-md-12">
                                 <div class="profile-crm-area">
                                     <div class="card mb-30">
                                         <div class="card-body">
