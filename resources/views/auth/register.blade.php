@@ -116,16 +116,16 @@
                                     @endif
 
                                     <div class="form-group mb-3">
-                                        <label for="npm">NPM</label>
-                                        <input class="form-control" type="text" id="npm" placeholder="NPM"
-                                        name="npm" :value="old('npm')" required autofocus autocomplete="npm">
+                                        <label for="npm">NPM / NID</label>
+                                        <input class="form-control" type="number" id="npm" placeholder="NPM"
+                                        name="npm" :value="old('npm')" required autofocus autocomplete="npm" maxlength="8">
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
 
                                     <div class="form-group mb-3">
                                         <label for="fullname">Name</label>
                                         <input class="form-control" type="text" id="fullname" placeholder="Name"
-                                        name="name" :value="old('name')" required autofocus autocomplete="name">
+                                        name="name" :value="old('name')" required autofocus autocomplete="name" maxlength="50">
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
 
@@ -133,7 +133,7 @@
                                     <div class="form-group mb-3">
                                         <label for="emailaddress">Email address</label>
                                         <input class="form-control" type="email"
-                                            placeholder="Enter your email" id="email" name="email" :value="old('email')" required autocomplete="username">
+                                            placeholder="Enter your email" id="email" name="email" :value="old('email')" required autocomplete="username" maxlength="50">
                                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                     </div>
 
@@ -141,7 +141,7 @@
                                         <label for="password">Password</label>
                                         <input class="form-control" id="password"
                                             placeholder="Enter your password"
-                                            type="password" name="password" required autocomplete="new-password">
+                                            type="password" name="password" required autocomplete="new-password" maxlength="20">
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
 
