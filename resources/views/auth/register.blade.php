@@ -118,7 +118,7 @@
                                     <div class="form-group mb-3">
                                         <label for="npm">NPM / NID</label>
                                         <input class="form-control" type="number" id="npm" placeholder="NPM"
-                                        name="npm" :value="old('npm')" required autofocus autocomplete="npm" maxlength="8">
+                                        name="npm" :value="old('npm')" required autofocus autocomplete="npm" max="99999999">
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
 
