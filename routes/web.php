@@ -3,11 +3,14 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AbsenController;
+use App\Http\Controllers\DosenController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dosen/login', [DosenController::class, 'login'])->name('dosen.login')->name('login');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

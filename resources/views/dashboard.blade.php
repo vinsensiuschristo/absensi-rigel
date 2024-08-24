@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     {{-- WEBCAM --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+    <script src="{{ asset('js/absent/webcam.min.js') }}"></script>
 
 </head>
 
@@ -242,9 +242,9 @@
                                 <div class="card">
                                     <div class="card-body">
                                         {{-- FORM BUAT ABSEN BARU --}}
-                                        <form method="POST" action="{{ route('absen.store') }}">
+                                        <form method="POST" action="{{ route('absen.store') }}" enctype="multipart/form-data">
                                             @csrf
-                                            <div class="form-group mb-3">
+                                            <div class="form-group mb-3" style="visibility:visible" id="snapshot">
                                                 <h5 class="card-title">Absen</h5>
                                                 <div id="my_camera" style="width: 100%;height: 240px;">
                                                 </div>
@@ -256,14 +256,49 @@
                                             </div>
                                             <div class="form-group mb-3">
                                                 <select class="form-select" aria-label="Default select example" name="absen" onChange="check();" id="status">
-                                                    <option selected>Kehadiran</option>
+                                                    <option selected>Kehadiran -</option>
                                                     <option value="Hadir">Hadir</option>
                                                     <option value="Izin">Izin</option>
                                                   </select>
                                             </div>
                                             <div class="form-group mb-3">
+                                                <select class="form-select" aria-label="Default select example" name="kelas"  id="kelas">
+                                                    <option selected>Kelas -</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                  </select>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <select class="form-select" aria-label="Default select example" name="jam"  id="jam">
+                                                    <option selected>Jam Ke -</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                  </select>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <select class="form-select" aria-label="Default select example" name="jam"  id="jam" disabled>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                  </select>
+                                            </div>
+                                            <div class="form-group mb-3">
                                                 <input type="text" class="form-control" id="keterangan" name="keterangan"
                                                     placeholder="Keterangan" style="visibility:hidden">
+                                            </div>
+
+                                            @error('bukti')
+                                                <label class="error mt-2 text-danger">{{ $message }}</label>
+                                            @enderror
+
+                                            <div class="form-group mb-3">
+                                                <label for="bukti" class="form-label" id="labelBukti" style="visibility:hidden">Upload Bukti</label>
+                                                <input class="form-control" type="file" id="bukti" name="bukti" style="visibility:hidden">
                                             </div>
                                             
                                             <button type="submit" class="btn btn-primary mr-2">Absen</button>
@@ -343,9 +378,19 @@
         }
         function hide(){
             document.getElementById('keterangan').style.visibility='hidden';
+            document.getElementById('bukti').style.visibility='hidden';
+            document.getElementById('labelBukti').style.visibility='hidden';
+            document.getElementById('snapshot').style.visibility='visible';
+            document.getElementById('kelas').style.visibility='visible';
+            document.getElementById('jam').style.visibility='visible';
         }
         function show(){
             document.getElementById('keterangan').style.visibility='visible';
+            document.getElementById('bukti').style.visibility='visible';
+            document.getElementById('labelBukti').style.visibility='visible';
+            document.getElementById('snapshot').style.visibility='hidden';
+            document.getElementById('kelas').style.visibility='hidden';
+            document.getElementById('jam').style.visibility='hidden';
         }
 
     </script>

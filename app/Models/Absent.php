@@ -15,6 +15,8 @@ class Absent extends Model
         'photo',
         'created_at',
         'updated_at',
+        'kelas',
+        'jam_ke',
         'keterangan'
     ];
 }
