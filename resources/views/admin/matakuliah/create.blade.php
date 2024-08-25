@@ -108,8 +108,8 @@
                             <li class="menu-header-title">Dashboard</li>
                             <li><a href="{{ route('admin.index') }}"><i class='bx bx-home-heart'></i><span>Dashboard</span></a></li>
                             <li><a href="{{ route('admin.user') }}"><i class='bx bx-user-circle'></i><span>User</span></a></li>
-                            <li class="active"><a href="{{ route('admin.jam-masuk') }}"><i class='fa fa-clock-o'></i><span>Jam Masuk</span></a></li>
-                            <li><a href="{{ route('matakuliah.index') }}"><i class='fa fa-clock-o'></i><span>Matakuliah</span></a></li>
+                            <li><a href="{{ route('admin.jam-masuk') }}"><i class='fa fa-clock-o'></i><span>Jam Masuk</span></a></li>
+                            <li class="active"><a href="{{ route('matakuliah.index') }}"><i class='fa fa-clock-o'></i><span>Matakuliah</span></a></li>
                             <li class="menu-header-title">Profile</li>
                             <li><a href="{{ route('admin.user') }}"><i class='bx bx-user-circle'></i><span>Profile</span></a></li>
                             <li>
@@ -220,14 +220,20 @@
                                 <div class="col-12 box-margin">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4 class="card-title mb-2">Edit Waktu Masuk</h4>
+                                            <div class="d-flex justify-content-between align-items-center mb-50">
+                                                <h4 class="card-title mb-0">Tambah <span
+                                                        class="break-320-480-none">Matakuliah</span></h4>
+                                                <div class="d-flex">
+                                                    <a href="{{ route('matakuliah.index') }}" class="btn btn-danger btn-sm mr-2">Kembali</a>
+                                                </div>
+                                            </div>
 
-                                            <form action="{{ route('admin.jam-masuk.update', $waktu->id) }}" method="POST">
+                                            <form action="{{ route('matakuliah.store') }}" method="POST">
                                                 @csrf
-                                                @method('PUT')
+                                                @method('POST')
                                                 <div class="form-group mb-3">
-                                                    <label for="waktu">Waktu</label>
-                                                    <input type="time" class="form-control" id="waktu" name="waktu" value="{{ $waktu->waktu }}">
+                                                    <label for="matakuliah">Matakuliah</label>
+                                                    <input type="text" class="form-control" id="matakuliah" name="matakuliah" maxlength="15">
                                                 </div>
 
                                                 <button type="submit" class="btn btn-primary">Update</button>

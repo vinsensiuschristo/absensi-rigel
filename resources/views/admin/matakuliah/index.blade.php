@@ -108,8 +108,8 @@
                             <li class="menu-header-title">Dashboard</li>
                             <li><a href="{{ route('admin.index') }}"><i class='bx bx-home-heart'></i><span>Dashboard</span></a></li>
                             <li><a href="{{ route('admin.user') }}"><i class='bx bx-user-circle'></i><span>User</span></a></li>
-                            <li class="active"><a href="{{ route('admin.jam-masuk') }}"><i class='fa fa-clock-o'></i><span>Jam Masuk</span></a></li>
-                            <li><a href="{{ route('matakuliah.index') }}"><i class='fa fa-clock-o'></i><span>Matakuliah</span></a></li>
+                            <li><a href="{{ route('admin.jam-masuk') }}"><i class='fa fa-clock-o'></i><span>Jam Masuk</span></a></li>
+                            <li class="active"><a href="{{ route('matakuliah.index') }}"><i class='fa fa-clock-o'></i><span>Matakuliah</span></a></li>
                             <li class="menu-header-title">Profile</li>
                             <li><a href="{{ route('admin.user') }}"><i class='bx bx-user-circle'></i><span>Profile</span></a></li>
                             <li>
@@ -188,9 +188,9 @@
                         <div class="row">
 
                             {{-- cek if message --}}
-                            @if (session('status'))
+                            @if (session('success'))
                                 <div class="alert alert-success" role="alert">
-                                    <strong>Sukses</strong> Absensi Berhasil
+                                    <strong>Sukses</strong> {{ session('success') }}
                                 </div>
                             @endif
 
@@ -220,18 +220,48 @@
                                 <div class="col-12 box-margin">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4 class="card-title mb-2">Edit Waktu Masuk</h4>
-
-                                            <form action="{{ route('admin.jam-masuk.update', $waktu->id) }}" method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <div class="form-group mb-3">
-                                                    <label for="waktu">Waktu</label>
-                                                    <input type="time" class="form-control" id="waktu" name="waktu" value="{{ $waktu->waktu }}">
+                                            <div class="d-flex justify-content-between align-items-center mb-50">
+                                                <h4 class="card-title mb-0">Dashboard <span
+                                                        class="break-320-480-none">Matakuliah</span></h4>
+                                                <div class="d-flex">
+                                                    <a href="{{ route('matakuliah.create') }}" class="btn btn-primary btn-sm mr-2">Tambah Matakuliah</a>
                                                 </div>
+                                            </div>
 
-                                                <button type="submit" class="btn btn-primary">Update</button>
-                                            </form>
+                                            <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Matakuliah</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+
+
+                                                <tbody>
+                                                    @foreach($matakuliahs as $matakuliah)
+                                                        <tr>
+                                                            <td>{{ $matakuliah->nama_matakuliah }}</td>
+                                                            <!-- Actions -->
+                                                            <td>
+                                                                <a href="{{ route('matakuliah.edit', $matakuliah->id) }}" class="action-item mr-2" data-bs-toggle="tooltip" title="Edit">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </a>
+                                                                <form action="{{ route('matakuliah.destroy', $matakuliah->id) }}" method="POST">
+                                                                    @method('DELETE')
+                                                                    @csrf
+                                                                    <div class="actions ml-3">
+                                                                        <button type="submit" class="action-item mr-2" data-bs-toggle="tooltip" title="Delete">
+                                                                            <i class="fa fa-trash"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    
+                                                </tbody>
+                                            </table>
 
                                         </div> <!-- end card body-->
                                     </div> <!-- end card -->
@@ -279,25 +309,25 @@
 
 
     <!-- Plugins Js -->
-    <script src="{{ asset('../js/jquery.min.js') }}"></script>
-    <script src="{{ asset('../js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('../js/bundle.js') }}"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bundle.js"></script>
 
     <!-- Active JS -->
-    <script src="{{ asset('../js/settings.js') }}"></script>
-    <script src="{{ asset('../js/scrool-bar.js') }}"></script>
-    <script src="{{ asset('../js/todo-list.js') }}"></script>
+    <script src="../js/settings.js"></script>
+    <script src="../js/scrool-bar.js"></script>
+    <script src="../js/todo-list.js"></script>
     <!-- DATE TIME -->
-    <script src="{{ asset('../js/waktu.js') }}"></script>
-    <script src="{{ asset('../js/active.js') }}"></script>
+    <script src="../js/waktu.js"></script>
+    <script src="../js/active.js"></script>
 
     <!-- Inject JS -->
-    <script src="{{ asset('../js/mini-event-calendar.min.js') }}"></script>
-    <script src="{{ asset('../js/mini-calendar-active.js') }}"></script>
-    <script src="{{ asset('../js/apexchart.min.js') }}"></script>
-    <script src="{{ asset('../js/dashboard-active.js') }}"></script>
-    <script src="{{ asset('../js/dashboard-active.js') }}"></script>
-    <script src="{{ asset('../js/absent/absent.js') }}"></script>
+    <script src="../js/mini-event-calendar.min.js"></script>
+    <script src="../js/mini-calendar-active.js"></script>
+    <script src="../js/apexchart.min.js"></script>
+    <script src="../js/dashboard-active.js"></script>
+    <script src="../js/dashboard-active.js"></script>
+    <script src="../js/absent/absent.js"></script>
 
     <!-- Inject JS -->
     <script src="{{ asset('../js/dataTable/jquery.datatables.min.js') }}"></script>
