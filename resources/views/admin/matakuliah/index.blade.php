@@ -111,7 +111,7 @@
                             <li><a href="{{ route('admin.jam-masuk') }}"><i class='fa fa-clock-o'></i><span>Jam Masuk</span></a></li>
                             <li class="active"><a href="{{ route('matakuliah.index') }}"><i class='fa fa-clock-o'></i><span>Matakuliah</span></a></li>
                             <li class="menu-header-title">Profile</li>
-                            <li><a href="{{ route('admin.user') }}"><i class='bx bx-user-circle'></i><span>Profile</span></a></li>
+                            <li><a href="{{ route('dosen.profile.index') }}"><i class='fa fa-id-badge'></i><span>Profile</span></a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

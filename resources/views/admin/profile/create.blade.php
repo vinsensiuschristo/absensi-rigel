@@ -109,9 +109,9 @@
                             <li><a href="{{ route('admin.index') }}"><i class='bx bx-home-heart'></i><span>Dashboard</span></a></li>
                             <li><a href="{{ route('admin.user') }}"><i class='bx bx-user-circle'></i><span>User</span></a></li>
                             <li><a href="{{ route('admin.jam-masuk') }}"><i class='fa fa-clock-o'></i><span>Jam Masuk</span></a></li>
-                            <li class="active"><a href="{{ route('matakuliah.index') }}"><i class='fa fa-clock-o'></i><span>Matakuliah</span></a></li>
+                            <li><a href="{{ route('matakuliah.index') }}"><i class='fa fa-clock-o'></i><span>Matakuliah</span></a></li>
                             <li class="menu-header-title">Profile</li>
-                            <li><a href="{{ route('dosen.profile.index') }}"><i class='fa fa-id-badge'></i><span>Profile</span></a></li>
+                            <li class="active"><a href="{{ route('dosen.profile.index') }}"><i class='fa fa-id-badge'></i><span>Profile</span></a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -221,22 +221,32 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center mb-50">
-                                                <h4 class="card-title mb-0">Edit <span
-                                                        class="break-320-480-none">Matakuliah</span></h4>
+                                                <h4 class="card-title mb-0">Tambah <span
+                                                        class="break-320-480-none">Profile</span></h4>
                                                 <div class="d-flex">
-                                                    <a href="{{ route('matakuliah.index') }}" class="btn btn-danger btn-sm mr-2">Kembali</a>
+                                                    <a href="{{ route('dosen.profile.index') }}" class="btn btn-danger btn-sm mr-2">Kembali</a>
                                                 </div>
                                             </div>
 
-                                            <form action="{{ route('matakuliah.update', $matakuliah->id) }}" method="POST">
+                                            <form action="{{ route('dosen.profile.store') }}" method="POST">
                                                 @csrf
-                                                @method('PUT')
+                                                @method('POST')
                                                 <div class="form-group mb-3">
-                                                    <label for="matakuliah">Matakuliah</label>
-                                                    <input type="text" class="form-control" id="matakuliah" name="matakuliah" maxlength="15" value="{{ $matakuliah->nama_matakuliah }}">
+                                                    <select class="form-select" aria-label="Default select example" name="matakuliah"  id="matakuliah">
+                                                        <option value="" selected>Kelas -</option>
+                                                        @foreach ($matakuliahs as $matakuliah)
+                                                            <option value="{{ $matakuliah->id }}">{{ $matakuliah->nama_matakuliah }}</option>
+                                                        @endforeach
+                                                      </select>
+
+                                                      @if ($errors->has('matakuliah'))
+                                                        <div class="invalid-feedback" role="alert">
+                                                            {{ $errors->first('matakuliah') }}
+                                                        </div>
+                                                    @endif
                                                 </div>
 
-                                                <button type="submit" class="btn btn-primary">Update</button>
+                                                <button type="submit" class="btn btn-primary">Tambah</button>
                                             </form>
 
                                         </div> <!-- end card body-->

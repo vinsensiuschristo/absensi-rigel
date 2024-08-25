@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\DosenController;
+use App\Http\Controllers\DosenProfileController;
 use App\Http\Controllers\MatakuliahController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,14 @@ Route::middleware('auth')->group(function () {
     Route::put('/dosen/jammasuk/{id}', [AdminController::class, 'jamMasukUpdate'])->name('admin.jam-masuk.update');
 
     Route::resource('/dosen/matakuliah', MatakuliahController::class);
+    Route::resource('/dosen/profile', DosenProfileController::class)->names([
+        'create' => 'dosen.profile.create',
+        'store' => 'dosen.profile.store',
+        'edit' => 'dosen.profile.edit',
+        'destroy' => 'dosen.profile.destroy',
+        'update' => 'dosen.profile.update',
+        'index' => 'dosen.profile.index',
+    ]);
 });
 
 require __DIR__ . '/auth.php';
