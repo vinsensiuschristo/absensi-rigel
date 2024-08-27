@@ -18,8 +18,7 @@ class AbsenController extends Controller
         if ($request->bukti !== null) {
             $request->validate([
                 'bukti' => 'required|image|mimes:jpg,png,jpeg|extensions:jpg,png|max:2048',
-                'kelas' => 'required',
-                'status' => 'required'
+               
             ]);
 
             $bukti = $request->file('bukti');
@@ -77,9 +76,6 @@ class AbsenController extends Controller
         $jam = $request->jam;
 
         $request->validate([
-            'kelas' => 'required',
-            'jam_ke' => 'required',
-            'status' => 'required'
         ]);
 
         Absent::create([
