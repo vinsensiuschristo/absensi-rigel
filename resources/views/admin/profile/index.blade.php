@@ -172,7 +172,7 @@
                             <div class="dropdown-menu profile dropdown-menu-right">
                                 <!-- User Profile Area -->
                                 <div class="user-profile-area">
-                                    <a href="{{ route('profile.edit') }}" class="dropdown-item"><i class="bx bx-wrench font-15"
+                                    <a href="{{ route('dosen.datadiri') }}" class="dropdown-item"><i class="bx bx-wrench font-15"
                                             aria-hidden="true"></i> Profile Setting</a>
                                 </div>
                             </div>
@@ -191,6 +191,13 @@
                             @if (session('success'))
                                 <div class="alert alert-success" role="alert">
                                     <strong>Sukses</strong> {{ session('success') }}
+                                </div>
+                            @endif
+
+                            {{-- cek if message --}}
+                            @if (session('status'))
+                                <div class="alert alert-success" role="alert">
+                                    <strong>Sukses</strong> {{ session('status') }}
                                 </div>
                             @endif
 

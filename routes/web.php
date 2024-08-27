@@ -39,6 +39,10 @@ Route::middleware('auth')->group(function () {
         'update' => 'dosen.profile.update',
         'index' => 'dosen.profile.index',
     ]);
+
+    Route::get('/dosen/datadiri', [DosenProfileController::class, 'datadiri'])->name('dosen.datadiri');
+    Route::patch('/dosen/datadiri', [DosenProfileController::class, 'updateDatadiri'])->name('dosen.datadiri.update');
+    Route::put('/dosen/datadiri', [DosenProfileController::class, 'updatePassword'])->name('dosen.password.update');
 });
 
 require __DIR__ . '/auth.php';

@@ -8,6 +8,12 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
+use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class DosenProfileController extends Controller
 {
@@ -108,5 +114,39 @@ class DosenProfileController extends Controller
         $profile->delete();
 
         return redirect()->route('dosen.profile.index')->with('success', 'Profile berhasil dihapus');
+    }
+
+    public function datadiri(Request $request): View
+    {
+        return view('admin.datadiri.edit', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    public function updateDatadiri(ProfileUpdateRequest $request): RedirectResponse
+    {
+        $request->user()->fill($request->validated());
+
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
+        }
+
+        $request->user()->save();
+
+        return Redirect::route('dosen.profile.index')->with('status', 'Data diri berhasil diupdate');
+    }
+
+    public function updatePassword(Request $request): RedirectResponse
+    {
+        $validated = $request->validateWithBag('updatePassword', [
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', Password::defaults(), 'confirmed'],
+        ]);
+
+        $request->user()->update([
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        return Redirect::route('dosen.profile.index')->with('status', 'Password berhasil diupdate');
     }
 }
