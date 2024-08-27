@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Absent;
+use App\Models\Matakuliah;
 use App\Models\Time;
 
 class AdminController extends Controller
@@ -14,6 +15,8 @@ class AdminController extends Controller
         $absenData = Absent::join('users', 'absents.user_id', '=', 'users.id')
             ->select('absents.*', 'users.name', 'users.npm')
             ->get();
+
+        // $matakuliahs = Matakuliah::all();
         return view('admin.index', ['absents' => $absenData]);
     }
 

@@ -19,7 +19,7 @@ class DosenProfileController extends Controller
         $profiles = Profile::join('users', 'profiles.user_id', '=', 'users.id')
             ->join('matakuliah', 'profiles.matakuliah_id', '=', 'matakuliah.id')
             ->select('profiles.*', 'users.name', 'matakuliah.nama_matakuliah')
-            ->get();
+            ->get()->where('user_id', Auth::user()->id);
 
         // $profiles = DB::table('matakuliah')
         //     ->select('name', 'email as user_email')

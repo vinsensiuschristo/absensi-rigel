@@ -7,10 +7,17 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Absent;
+use App\Models\Matakuliah;
 use App\Models\Time;
 
 class AbsenController extends Controller
 {
+    public function index()
+    {
+        $matakuliahs = Matakuliah::all();
+        return view('dashboard', compact('matakuliahs'));
+    }
+
     public function store(Request $request)
     {
         $userId = Auth::user()->id;
@@ -18,7 +25,7 @@ class AbsenController extends Controller
         if ($request->bukti !== null) {
             $request->validate([
                 'bukti' => 'required|image|mimes:jpg,png,jpeg|extensions:jpg,png|max:2048',
-               
+
             ]);
 
             $bukti = $request->file('bukti');
@@ -31,12 +38,15 @@ class AbsenController extends Controller
             $kelas = $request->kelas;
             $jam = $request->jam;
 
+            $matakuliah_id = $request->matakuliah_id;
+
             Absent::create([
                 'user_id' => auth()->user()->id,
                 'status' => $absen,
                 'photo' => $buktiName,
                 'created_at' => $created_at,
                 'keterangan' => $keterangan,
+                'matakuliah_id' => $matakuliah_id,
                 'jam_ke' => $jam,
                 'kelas' => $kelas
             ]);
@@ -74,9 +84,9 @@ class AbsenController extends Controller
 
         $kelas = $request->kelas;
         $jam = $request->jam;
+        $matakuliah_id = $request->matakuliah_id;
 
-        $request->validate([
-        ]);
+        $request->validate([]);
 
         Absent::create([
             'user_id' => auth()->user()->id,
@@ -84,6 +94,7 @@ class AbsenController extends Controller
             'photo' => $fileName,
             'created_at' => $created_at,
             'keterangan' => $keterangan,
+            'matakuliah_id' => $matakuliah_id,
             'jam_ke' => $jam,
             'kelas' => $kelas
         ]);

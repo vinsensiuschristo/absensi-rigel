@@ -233,7 +233,7 @@
                                                 @method('POST')
                                                 <div class="form-group mb-3">
                                                     <select class="form-select" aria-label="Default select example" name="matakuliah"  id="matakuliah">
-                                                        <option value="" selected>Kelas -</option>
+                                                        <option value="" selected>Matakuliah -</option>
                                                         @foreach ($matakuliahs as $matakuliah)
                                                             <option value="{{ $matakuliah->id }}">{{ $matakuliah->nama_matakuliah }}</option>
                                                         @endforeach

@@ -276,6 +276,19 @@
                                                     <label id="lastname-error" class="error mt-2 text-danger" for="lastname">Masukan Kelas Dengan Benar</label>
                                                 @enderror
                                             </div>
+
+                                            <div class="form-group mb-3">
+                                                <select class="form-select" aria-label="Default select example" name="matakuliah_id"  id="matakuliah_id">
+                                                    <option value="" selected>Matakuliah -</option>
+                                                    @foreach ($matakuliahs as $matakuliah)
+                                                        <option value="{{ $matakuliah->id }}">{{ $matakuliah->nama_matakuliah }}</option>
+                                                    @endforeach 
+                                                  </select>
+                                                  @error('matakuliah_id')
+                                                    <label id="lastname-error" class="error mt-2 text-danger" for="lastname">Masukan Matakuliah Dengan Benar</label>
+                                                @enderror
+                                            </div>
+
                                             <div class="form-group mb-3">
                                                 <select class="form-select" aria-label="Default select example" name="jam"  id="jam" class="@error('jam') is-invalid @enderror">
                                                     <option value="" selected>Jam Ke -</option>
@@ -384,6 +397,7 @@
             document.getElementById('snapshot').style.visibility='visible';
             document.getElementById('kelas').style.visibility='visible';
             document.getElementById('jam').style.visibility='visible';
+            document.getElementById('matakuliah_id').style.visibility='visible';
         }
         function show(){
             document.getElementById('keterangan').style.visibility='visible';
@@ -392,6 +406,7 @@
             document.getElementById('snapshot').style.visibility='hidden';
             document.getElementById('kelas').style.visibility='hidden';
             document.getElementById('jam').style.visibility='hidden';
+            document.getElementById('matakuliah_id').style.visibility='hidden';
         }
 
     </script>

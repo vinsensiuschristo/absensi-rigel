@@ -16,6 +16,7 @@ class Absent extends Model
         'created_at',
         'updated_at',
         'kelas',
+        'matakuliah_id',
         'jam_ke',
         'keterangan'
     ];
