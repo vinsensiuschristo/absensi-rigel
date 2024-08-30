@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\DosenProfileController;
+use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MatakuliahController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dosen/datadiri', [DosenProfileController::class, 'datadiri'])->name('dosen.datadiri');
     Route::patch('/dosen/datadiri', [DosenProfileController::class, 'updateDatadiri'])->name('dosen.datadiri.update');
     Route::put('/dosen/datadiri', [DosenProfileController::class, 'updatePassword'])->name('dosen.password.update');
+
+    Route::resource('/dosen/kelas', KelasController::class);
 });
 
 require __DIR__ . '/auth.php';
