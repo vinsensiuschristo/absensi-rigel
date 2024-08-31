@@ -22,16 +22,17 @@ class DosenProfileController extends Controller
      */
     public function index()
     {
-        $profiles = Profile::join('users', 'profiles.user_id', '=', 'users.id')
-            ->join('matakuliah', 'profiles.matakuliah_id', '=', 'matakuliah.id')
-            ->select('profiles.*', 'users.name', 'matakuliah.nama_matakuliah')
-            ->get()->where('user_id', Auth::user()->id);
+        $profiles = DB::table('profiles')
+            ->join('matakuliah', 'profiles.id', '=', 'matakuliah.id')
+            ->select('profiles.id', 'profiles.nama', 'matakuliah.nama_matakuliah')
+            ->get();
 
         // $profiles = DB::table('matakuliah')
         //     ->select('name', 'email as user_email')
         //     ->get();
 
         // dd($profiles);
+
         return view('admin.profile.index', ['profiles' => $profiles]);
     }
 

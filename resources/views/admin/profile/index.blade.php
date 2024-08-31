@@ -113,7 +113,6 @@
                             <li><a href="{{ route('kelas.index') }}"><i class='fa fa-group'></i><span>Kelas</span></a></li>
                             <li class="menu-header-title">Profile</li>
                             <li class="active"><a href="{{ route('dosen.profile.index') }}"><i class='fa fa-id-badge'></i><span>Profile</span></a></li>
-                            <li class="active><a href="{{ route('matakuliah.index') }}"><i class='fa fa-group'></i><span>Kelas</span></a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -251,7 +250,7 @@
                                                     @foreach($profiles as $profile)
                                                         <tr>
                                                             <td>{{ $profile->nama }}</td>
-                                                            <td>{{ $profile->matakuliah_id }}</td>
+                                                            <td>{{ $profile->nama_matakuliah }}</td>
                                                             <!-- Actions -->
                                                             <td>
                                                                 <a href="{{ route('dosen.profile.edit', $profile->id) }}" class="action-item mr-2" data-bs-toggle="tooltip" title="Edit">

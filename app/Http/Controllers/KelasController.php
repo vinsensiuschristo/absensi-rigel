@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InputKelas;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KelasController extends Controller
 {
@@ -12,12 +14,13 @@ class KelasController extends Controller
      */
     public function index()
     {
-        // $kelases = Kelas::select('nama_kelas')->where('dosen_id', auth()->user()->id);
-        // $kelases = Kelas::where('dosen_id', auth()->user()->id)->distinct();
-        $kelases = Kelas::distinct()->get(['nama_kelas']);
+        // Query buat munculin id kelas yang diajar oleh dosen yang login
+        // $kelases = DB::table('input_kelas')->select('id', 'kelas_id')->where('dosen_id', auth()->user()->id)->distinct()->get()->first();
+        // $kelases = DB::table('input_kelas')->distinct('dosen_id')->get();
+        $kelases = InputKelas::where('dosen_id', auth()->user()->id)->distinct()->get();
 
-        dd($kelases);
-        // return view('admin.kelas.index', compact('kelases'));
+        // dd($kelases);
+        return view('admin.kelas.index', compact('kelases'));
     }
 
     /**

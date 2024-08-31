@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('input_kelas', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_kelas');
+            $table->unsignedBigInteger('kelas_id');
             $table->unsignedBigInteger('dosen_id');
             $table->unsignedBigInteger('matakuliah_id');
             $table->unsignedBigInteger('mahasiswa_id');
             $table->timestamps();
 
+            $table->foreign('kelas_id')->references('id')->on('kelas');
             $table->foreign('dosen_id')->references('id')->on('users');
             $table->foreign('matakuliah_id')->references('id')->on('matakuliah');
             $table->foreign('mahasiswa_id')->references('id')->on('users');

@@ -217,7 +217,7 @@
                                                 <tbody>
                                                     @foreach($kelases as $kelas)
                                                         <tr>
-                                                            <td>{{ $kelas->nama_kelas }}</td>
+                                                            <td>{{ $kelas->kelas_id }}</td>
                                                             <!-- Actions -->
                                                             <td>
                                                                 <a href="{{ route('kelas.edit', $kelas->id) }}" class="action-item mr-2" data-bs-toggle="tooltip" title="Edit">
