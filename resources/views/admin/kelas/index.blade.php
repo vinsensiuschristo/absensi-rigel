@@ -2,19 +2,26 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Required meta tags -->
 
     <title>Aplikasi Kehadiran</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="img/core-img/favicon.png">
+    <link rel="icon" href="../img/core-img/favicon.png">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" href="{{ asset('../css/mini-event-calendar.min.css') }}">
 
     <!-- Master Stylesheet CSS -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/style.css') }}">
+
+    <!-- These plugins only need for the run this page -->
+    <link rel="stylesheet" href="{{ asset('../css/dataTable/datatables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/dataTable/responsive.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/dataTable/buttons.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/dataTable/select.bootstrap4.css') }}">
 
 </head>
 
@@ -103,9 +110,11 @@
                             <li><a href="{{ route('admin.user') }}"><i class='bx bx-user-circle'></i><span>User</span></a></li>
                             <li><a href="{{ route('admin.jam-masuk') }}"><i class='fa fa-clock-o'></i><span>Jam Masuk</span></a></li>
                             <li><a href="{{ route('matakuliah.index') }}"><i class='fa fa-clock-o'></i><span>Matakuliah</span></a></li>
+                            <li class="menu-header-title">Kelas</li>
                             <li class="active"><a href="{{ route('kelas.index') }}"><i class='fa fa-group'></i><span>Kelas</span></a></li>
+                            <li><a href="{{ route('mahasiswa.index') }}"><i class='fa fa-angle-double-left'></i><span>Input Mahasiswa ke Kelas</span></a></li>
                             <li class="menu-header-title">Profile</li>
-                            <li"><a href="{{ route('dosen.profile.index') }}"><i class='fa fa-id-badge'></i><span>Profile</span></a></li>
+                            <li><a href=""><i class='fa fa-id-badge'></i><span>Profile</span></a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -166,49 +175,73 @@
                             <div class="dropdown-menu profile dropdown-menu-right">
                                 <!-- User Profile Area -->
                                 <div class="user-profile-area">
-                                    <a href="{{ route('profile.edit') }}" class="dropdown-item"><i class="bx bx-wrench font-15"
+                                    <a href="##" class="dropdown-item"><i class="bx bx-wrench font-15"
                                             aria-hidden="true"></i> Profile Setting</a>
                                 </div>
                             </div>
                         </li>
                     </ul>
                 </div>
-
             </header>
 
-
-            <!-- Main Page -->
+            <!-- Body Content -->
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="container-fluid">
                         <div class="row">
 
-                            
-                {{-- cek if message --}}
-                @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    <strong>Sukses</strong> Data Berhasil Diupdate.
-                </div>
-                @endif
+                            {{-- cek if message --}}
+                            @if (session('success'))
+                                <div class="alert alert-success" role="alert">
+                                    <strong>Sukses</strong> {{ session('success') }}
+                                </div>
+                            @endif
 
-                            
-                            {{-- Body --}}
+                            {{-- cek if message --}}
+                            @if (session('status'))
+                                <div class="alert alert-success" role="alert">
+                                    <strong>Sukses</strong> {{ session('status') }}
+                                </div>
+                            @endif
+
+                            <div class="col-12 col-sm-6 col-xl">
+                                <!-- Card -->
+                                <div class="card box-margin">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <!-- Title -->
+                                                <h6 class="text-uppercase font-14">
+                                                    TANGGAL & WAKTU
+                                                </h6>
+
+                                                <!-- Heading -->
+                                                <span class="font-24 text-dark mb-0" id="current-time">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- body --}}
+
                             <div class="row">
                                 <div class="col-12 box-margin">
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center mb-50">
                                                 <h4 class="card-title mb-0">Dashboard <span
-                                                        class="break-320-480-none">Matakuliah</span></h4>
-                                                <div class="d-flex">
-                                                    <a href="{{ route('matakuliah.create') }}" class="btn btn-primary btn-sm mr-2">Tambah Matakuliah</a>
-                                                </div>
+                                                    class="break-320-480-none">Kelas</span></h4>
+                                            <div class="d-flex">
+                                                <a href="{{ route('kelas.create') }}" class="btn btn-primary btn-sm mr-2">Tambah Kelas</a>
+                                            </div>
                                             </div>
 
                                             <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
                                                 <thead>
                                                     <tr>
-                                                        <th>Kelas</th>
+                                                        <th>Nama</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
@@ -217,7 +250,7 @@
                                                 <tbody>
                                                     @foreach($kelases as $kelas)
                                                         <tr>
-                                                            <td>{{ $kelas->kelas_id }}</td>
+                                                            <td>{{ $kelas->nama }}</td>
                                                             <!-- Actions -->
                                                             <td>
                                                                 <a href="{{ route('kelas.edit', $kelas->id) }}" class="action-item mr-2" data-bs-toggle="tooltip" title="Edit">
@@ -245,34 +278,33 @@
                                 </div><!-- end col-->
                             </div>
 
-                                
-
                             </div>
                         </div>
+                        <!-- / .row -->
                     </div>
-                </div>
 
                     <!-- Footer Area -->
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12">
                                 <!-- Footer Area -->
-                                <footer class="footer-area d-sm-flex justify-content-center align-items-center justify-content-between">
+                                <footer
+                                    class="footer-area d-sm-flex justify-content-center align-items-center justify-content-between">
                                     <!-- Copywrite Text -->
                                     <div class="copywrite-text">
-                                        <p>Created by @<a href="#">Theme-zome</a></p>
+                                        <p>Created by @<a href="#">RIGEL</a></p>
                                     </div>
                                     <div class="fotter-icon text-center">
-                                        <a href="#" class="action-item mr-2" data-toggle="tooltip" title="Facebook">
+                                        <a href="#" class="action-item mr-2" data-bs-toggle="tooltip" title="Facebook">
                                             <i class="fa fa-facebook" aria-hidden="true"></i>
                                         </a>
-                                        <a href="#" class="action-item mr-2" data-toggle="tooltip" title="Twitter">
+                                        <a href="#" class="action-item mr-2" data-bs-toggle="tooltip" title="Twitter">
                                             <i class="fa fa-twitter" aria-hidden="true"></i>
                                         </a>
-                                        <a href="#" class="action-item mr-2" data-toggle="tooltip" title="Pinterest">
+                                        <a href="#" class="action-item mr-2" data-bs-toggle="tooltip" title="Pinterest">
                                             <i class="fa fa-pinterest-p" aria-hidden="true"></i>
                                         </a>
-                                        <a href="#" class="action-item mr-2" data-toggle="tooltip" title="Instagram">
+                                        <a href="#" class="action-item mr-2" data-bs-toggle="tooltip" title="Instagram">
                                             <i class="fa fa-instagram" aria-hidden="true"></i>
                                         </a>
                                     </div>
@@ -285,45 +317,42 @@
         </div>
     </div>
 
-    <!-- ======================================
-    ********* Page Wrapper Area End ***********
-    ======================================= -->
 
     <!-- Plugins Js -->
-    <script src="{{ asset('../js/jquery.min.js') }}"></script>
-    <script src="{{ asset('../js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('../js/bundle.js') }}"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bundle.js"></script>
 
     <!-- Active JS -->
-    <script src="{{ asset('../js/settings.js') }}"></script>
-    <script src="{{ asset('../js/scrool-bar.js') }}"></script>
-    <script src="{{ asset('../js/todo-list.js') }}"></script>
-    <script src="{{ asset('../js/active.js') }}"></script>
+    <script src="../js/settings.js"></script>
+    <script src="../js/scrool-bar.js"></script>
+    <script src="../js/todo-list.js"></script>
+    <!-- DATE TIME -->
+    <script src="../js/waktu.js"></script>
+    <script src="../js/active.js"></script>
+
+    <!-- Inject JS -->
+    <script src="../js/mini-event-calendar.min.js"></script>
+    <script src="../js/mini-calendar-active.js"></script>
+    <script src="../js/apexchart.min.js"></script>
+    <script src="../js/dashboard-active.js"></script>
+    <script src="../js/dashboard-active.js"></script>
+    <script src="../js/absent/absent.js"></script>
+
+    <!-- Inject JS -->
+    <script src="{{ asset('../js/dataTable/jquery.datatables.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/datatables.bootstrap4.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/datatable-responsive.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/datatable-button.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/button.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/button.html5.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/button.flash.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/button.print.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/datatables.keytable.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/datatables.select.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/demo.datatable-init.js') }}"></script>
     
-    <script>
-        // Get all elements with class="closebtn"
-        var close = document.getElementsByClassName("closebtn");
-        var i;
-
-        // Loop through all close buttons
-        for (i = 0; i < close.length; i++) {
-            // When someone clicks on a close button
-            close[i].onclick = function() {
-
-                // Get the parent of <span class="closebtn"> (<div class="alert">)
-                var div = this.parentElement;
-
-                // Set the opacity of div to 0 (transparent)
-                div.style.opacity = "0";
-
-                // Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
-                setTimeout(function() {
-                    div.style.display = "none";
-                }, 600);
-            }
-        }
-    </script>
-
 </body>
 
 </html>

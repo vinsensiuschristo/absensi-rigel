@@ -6,6 +6,7 @@ use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\DosenProfileController;
 use App\Http\Controllers\KelasController;
+use App\Http\Controllers\MahasiswaHasMatakuliahController;
 use App\Http\Controllers\MatakuliahController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,20 +33,21 @@ Route::middleware('auth')->group(function () {
     Route::put('/dosen/jammasuk/{id}', [AdminController::class, 'jamMasukUpdate'])->name('admin.jam-masuk.update');
 
     Route::resource('/dosen/matakuliah', MatakuliahController::class);
-    Route::resource('/dosen/profile', DosenProfileController::class)->names([
-        'create' => 'dosen.profile.create',
-        'store' => 'dosen.profile.store',
-        'edit' => 'dosen.profile.edit',
-        'destroy' => 'dosen.profile.destroy',
-        'update' => 'dosen.profile.update',
-        'index' => 'dosen.profile.index',
-    ]);
+    // Route::resource('/dosen/profile', DosenProfileController::class)->names([
+    //     'create' => 'dosen.profile.create',
+    //     'store' => 'dosen.profile.store',
+    //     'edit' => 'dosen.profile.edit',
+    //     'destroy' => 'dosen.profile.destroy',
+    //     'update' => 'dosen.profile.update',
+    //     'index' => 'dosen.profile.index',
+    // ]);
 
-    Route::get('/dosen/datadiri', [DosenProfileController::class, 'datadiri'])->name('dosen.datadiri');
-    Route::patch('/dosen/datadiri', [DosenProfileController::class, 'updateDatadiri'])->name('dosen.datadiri.update');
-    Route::put('/dosen/datadiri', [DosenProfileController::class, 'updatePassword'])->name('dosen.password.update');
+    // Route::get('/dosen/datadiri', [DosenProfileController::class, 'datadiri'])->name('dosen.datadiri');
+    // Route::patch('/dosen/datadiri', [DosenProfileController::class, 'updateDatadiri'])->name('dosen.datadiri.update');
+    // Route::put('/dosen/datadiri', [DosenProfileController::class, 'updatePassword'])->name('dosen.password.update');
 
     Route::resource('/dosen/kelas', KelasController::class);
+    Route::resource('/dosen/mahasiswa', MahasiswaHasMatakuliahController::class);
 });
 
 require __DIR__ . '/auth.php';

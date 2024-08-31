@@ -2,19 +2,26 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Required meta tags -->
 
     <title>Aplikasi Kehadiran</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="img/core-img/favicon.png">
+    <link rel="icon" href="../img/core-img/favicon.png">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" href="{{ asset('../css/mini-event-calendar.min.css') }}">
 
     <!-- Master Stylesheet CSS -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/style.css') }}">
+
+    <!-- These plugins only need for the run this page -->
+    <link rel="stylesheet" href="{{ asset('../css/dataTable/datatables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/dataTable/responsive.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/dataTable/buttons.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/dataTable/select.bootstrap4.css') }}">
 
 </head>
 
@@ -103,9 +110,11 @@
                             <li><a href="{{ route('admin.user') }}"><i class='bx bx-user-circle'></i><span>User</span></a></li>
                             <li><a href="{{ route('admin.jam-masuk') }}"><i class='fa fa-clock-o'></i><span>Jam Masuk</span></a></li>
                             <li><a href="{{ route('matakuliah.index') }}"><i class='fa fa-clock-o'></i><span>Matakuliah</span></a></li>
+                            <li class="menu-header-title">Kelas</li>
                             <li class="active"><a href="{{ route('kelas.index') }}"><i class='fa fa-group'></i><span>Kelas</span></a></li>
+                            <li><a href="{{ route('mahasiswa.index') }}"><i class='fa fa-angle-double-left'></i><span>Input Mahasiswa ke Kelas</span></a></li>
                             <li class="menu-header-title">Profile</li>
-                            <li"><a href="{{ route('dosen.profile.index') }}"><i class='fa fa-id-badge'></i><span>Profile</span></a></li>
+                            <li><a href=""><i class='fa fa-id-badge'></i><span>Profile</span></a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -166,134 +175,117 @@
                             <div class="dropdown-menu profile dropdown-menu-right">
                                 <!-- User Profile Area -->
                                 <div class="user-profile-area">
-                                    <a href="{{ route('profile.edit') }}" class="dropdown-item"><i class="bx bx-wrench font-15"
+                                    <a href="##" class="dropdown-item"><i class="bx bx-wrench font-15"
                                             aria-hidden="true"></i> Profile Setting</a>
                                 </div>
                             </div>
                         </li>
                     </ul>
                 </div>
-
             </header>
 
-
-            <!-- Main Page -->
+            <!-- Body Content -->
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="container-fluid">
                         <div class="row">
 
-                            
-                {{-- cek if message --}}
-                @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    <strong>Sukses</strong> Data Berhasil Diupdate.
-                </div>
-                @endif
+                            {{-- cek if message --}}
+                            @if (session('success'))
+                                <div class="alert alert-success" role="alert">
+                                    <strong>Sukses</strong> {{ session('success') }}
+                                </div>
+                            @endif
 
-                            
-                            {{-- Data User --}}
-                            <div class="col-12 col-md-12">
-                                <div class="profile-crm-area">
-                                    <div class="card mb-30">
-                                        <div class="card-body">
-                                            {{-- ini user data--}}
-                                            <h4>Profile Information</h4>
-                                            <p class="mt-1 text-sm text-gray-600">
-                                                Update your account's profile information and email address.
-                                            </p>
-                                            <div class="card-body">
-                                                <h1>Add Kelas</h1>
-                                                </form>
+                            {{-- cek if message --}}
+                            @if (session('status'))
+                                <div class="alert alert-success" role="alert">
+                                    <strong>Sukses</strong> {{ session('status') }}
+                                </div>
+                            @endif
+
+                            <div class="col-12 col-sm-6 col-xl">
+                                <!-- Card -->
+                                <div class="card box-margin">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <!-- Title -->
+                                                <h6 class="text-uppercase font-14">
+                                                    TANGGAL & WAKTU
+                                                </h6>
+
+                                                <!-- Heading -->
+                                                <span class="font-24 text-dark mb-0" id="current-time">
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div>
-                                <div class="profile-crm-area">
-                                    <div class="card mb-30">
+                            {{-- body --}}
+
+                            <div class="row">
+                                <div class="col-12 box-margin">
+                                    <div class="card">
                                         <div class="card-body">
-                                            {{-- ini user data--}}
-                                            <h4>Update Password</h4>
-                                            <p class="mt-1 text-sm text-gray-600">
-                                                Ensure your account is using a long, random password to stay secure.
-                                            </p>
-                                            <div class="card-body">
-                                                <form method="post" action="{{ route('dosen.password.update') }}" class="mt-6 space-y-6">
-                                                    @csrf
-                                                    @method('put')
-
-                                                <div class="row profile-row">
-                                                        <div class="col-xs-5 col-sm-3">
-                                                            <span class="profile-cat">Password Lama</span>
-                                                        </div>
-                                                        <div class="col-xl-7 col-sm-9">
-                                                            <input id="update_password_current_password" name="current_password" type="password" class="form-control rounded-0 form-control-md" autocomplete="current-password">
-                                                            <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
-                                                        </div>
+                                            <div class="d-flex justify-content-between align-items-center mb-50">
+                                                <h4 class="card-title mb-0">Dashboard <span
+                                                    class="break-320-480-none">Input Kelas</span></h4>
+                                                    <div class="d-flex">
+                                                        <a href="{{ route('kelas.index') }}" class="btn btn-danger btn-sm mr-2">Kembali</a>
                                                     </div>
-                                                    <div class="row profile-row">
-                                                        <div class="col-xs-5 col-sm-3">
-                                                            <span class="profile-cat">Password Baru</span>
-                                                        </div>
-                                                        <div class="col-xl-7 col-sm-9">
-                                                            <input id="update_password_password" name="password" type="password" class="form-control rounded-0 form-control-md" autocomplete="new-password">
-                                                            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="row profile-row">
-                                                        <div class="col-xs-5 col-sm-3">
-                                                            <span class="profile-cat">Comfirm Password</span>
-                                                        </div>
-                                                        <div class="col-xl-7 col-sm-9">
-                                                            <input id="update_password_password_confirmation" name="password_confirmation" type="password" class="form-control rounded-0 form-control-md" autocomplete="new-password">
-                                                            <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="row profile-row">
-                                                        <div class="col-xs-5 col-sm-3">
-                                                            <button class="btn btn-primary btn-block" type="submit">Update Password
-                                                        </button>
-                                                        </div>
-                                                    </div>
-
-                                                </form>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                                
+                                            <form action="{{ route('kelas.store') }}" method="POST">
+                                                @csrf
+                                                @method('POST')
+                                                <div class="form-group mb-3">
+                                                    <label for="kelas">Nama Kelas</label>
+                                                    <input type="text" class="form-control" id="nama" name="nama" maxlength="15">
+                                                    @error('nama')
+                                                        <div class="invalid-feedback" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+
+                                                <button type="submit" class="btn btn-primary">Update</button>
+                                            </form>
+
+                                        </div> <!-- end card body-->
+                                    </div> <!-- end card -->
+                                </div><!-- end col-->
+                            </div>
 
                             </div>
                         </div>
+                        <!-- / .row -->
                     </div>
-                </div>
 
                     <!-- Footer Area -->
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12">
                                 <!-- Footer Area -->
-                                <footer class="footer-area d-sm-flex justify-content-center align-items-center justify-content-between">
+                                <footer
+                                    class="footer-area d-sm-flex justify-content-center align-items-center justify-content-between">
                                     <!-- Copywrite Text -->
                                     <div class="copywrite-text">
-                                        <p>Created by @<a href="#">Theme-zome</a></p>
+                                        <p>Created by @<a href="#">RIGEL</a></p>
                                     </div>
                                     <div class="fotter-icon text-center">
-                                        <a href="#" class="action-item mr-2" data-toggle="tooltip" title="Facebook">
+                                        <a href="#" class="action-item mr-2" data-bs-toggle="tooltip" title="Facebook">
                                             <i class="fa fa-facebook" aria-hidden="true"></i>
                                         </a>
-                                        <a href="#" class="action-item mr-2" data-toggle="tooltip" title="Twitter">
+                                        <a href="#" class="action-item mr-2" data-bs-toggle="tooltip" title="Twitter">
                                             <i class="fa fa-twitter" aria-hidden="true"></i>
                                         </a>
-                                        <a href="#" class="action-item mr-2" data-toggle="tooltip" title="Pinterest">
+                                        <a href="#" class="action-item mr-2" data-bs-toggle="tooltip" title="Pinterest">
                                             <i class="fa fa-pinterest-p" aria-hidden="true"></i>
                                         </a>
-                                        <a href="#" class="action-item mr-2" data-toggle="tooltip" title="Instagram">
+                                        <a href="#" class="action-item mr-2" data-bs-toggle="tooltip" title="Instagram">
                                             <i class="fa fa-instagram" aria-hidden="true"></i>
                                         </a>
                                     </div>
@@ -306,9 +298,6 @@
         </div>
     </div>
 
-    <!-- ======================================
-    ********* Page Wrapper Area End ***********
-    ======================================= -->
 
     <!-- Plugins Js -->
     <script src="{{ asset('../js/jquery.min.js') }}"></script>
@@ -319,32 +308,31 @@
     <script src="{{ asset('../js/settings.js') }}"></script>
     <script src="{{ asset('../js/scrool-bar.js') }}"></script>
     <script src="{{ asset('../js/todo-list.js') }}"></script>
+    <!-- DATE TIME -->
+    <script src="{{ asset('../js/waktu.js') }}"></script>
     <script src="{{ asset('../js/active.js') }}"></script>
+
+    <!-- Inject JS -->
+    <script src="{{ asset('../js/mini-event-calendar.min.js') }}"></script>
+    <script src="{{ asset('../js/mini-calendar-active.js') }}"></script>
+    <script src="{{ asset('../js/apexchart.min.js') }}"></script>
+    <script src="{{ asset('../js/dashboard-active.js') }}"></script>
+    <script src="{{ asset('../js/absent/absent.js') }}"></script>
+
+    <!-- Inject JS -->
+    <script src="{{ asset('../js/dataTable/jquery.datatables.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/datatables.bootstrap4.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/datatable-responsive.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/datatable-button.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/button.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/button.html5.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/button.flash.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/button.print.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/datatables.keytable.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/datatables.select.min.js') }}"></script>
+    <script src="{{ asset('../js/dataTable/demo.datatable-init.js') }}"></script>
     
-    <script>
-        // Get all elements with class="closebtn"
-        var close = document.getElementsByClassName("closebtn");
-        var i;
-
-        // Loop through all close buttons
-        for (i = 0; i < close.length; i++) {
-            // When someone clicks on a close button
-            close[i].onclick = function() {
-
-                // Get the parent of <span class="closebtn"> (<div class="alert">)
-                var div = this.parentElement;
-
-                // Set the opacity of div to 0 (transparent)
-                div.style.opacity = "0";
-
-                // Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
-                setTimeout(function() {
-                    div.style.display = "none";
-                }, 600);
-            }
-        }
-    </script>
-
 </body>
 
 </html>

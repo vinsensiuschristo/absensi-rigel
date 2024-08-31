@@ -15,11 +15,10 @@ class KelasController extends Controller
     public function index()
     {
         // Query buat munculin id kelas yang diajar oleh dosen yang login
-        // $kelases = DB::table('input_kelas')->select('id', 'kelas_id')->where('dosen_id', auth()->user()->id)->distinct()->get()->first();
-        // $kelases = DB::table('input_kelas')->distinct('dosen_id')->get();
-        $kelases = InputKelas::where('dosen_id', auth()->user()->id)->distinct()->get();
+        $kelases = Kelas::all();
 
         // dd($kelases);
+
         return view('admin.kelas.index', compact('kelases'));
     }
 
@@ -28,7 +27,7 @@ class KelasController extends Controller
      */
     public function create()
     {
-        return view('admin.kelas.add');
+        return view('admin.kelas.create');
     }
 
     /**
@@ -36,7 +35,15 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required',
+        ]);
+
+        Kelas::create([
+            'nama' => $validatedData['nama'],
+        ]);
+
+        return redirect()->route('kelas.index')->with('success', 'Kelas berhasil ditambahkan');
     }
 
     /**
@@ -52,7 +59,9 @@ class KelasController extends Controller
      */
     public function edit(string $id)
     {
-        return view('admin.kelas.edit');
+        $kelas = Kelas::findOrFail($id);
+
+        return view('admin.kelas.edit', compact('kelas'));
     }
 
     /**
@@ -60,7 +69,17 @@ class KelasController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required',
+        ]);
+
+        $kelas = Kelas::findOrFail($id);
+
+        $kelas->update([
+            'nama' => $validatedData['nama'],
+        ]);
+
+        return redirect()->route('kelas.index')->with('success', 'Kelas berhasil diubah');
     }
 
     /**
@@ -68,6 +87,10 @@ class KelasController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $kelas = Kelas::findOrFail($id);
+
+        $kelas->delete();
+
+        return redirect()->route('kelas.index')->with('success', 'Kelas berhasil dihapus');
     }
 }

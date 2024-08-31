@@ -110,9 +110,11 @@
                             <li><a href="{{ route('admin.user') }}"><i class='bx bx-user-circle'></i><span>User</span></a></li>
                             <li><a href="{{ route('admin.jam-masuk') }}"><i class='fa fa-clock-o'></i><span>Jam Masuk</span></a></li>
                             <li class="active"><a href="{{ route('matakuliah.index') }}"><i class='fa fa-clock-o'></i><span>Matakuliah</span></a></li>
+                            <li class="menu-header-title">Kelas</li>
                             <li><a href="{{ route('kelas.index') }}"><i class='fa fa-group'></i><span>Kelas</span></a></li>
+                            <li><a href="{{ route('kelas.index') }}"><i class='fa fa-angle-double-left'></i><span>Input Mahasiswa ke Kelas</span></a></li>
                             <li class="menu-header-title">Profile</li>
-                            <li><a href="{{ route('dosen.profile.index') }}"><i class='fa fa-id-badge'></i><span>Profile</span></a></li>
+                            <li><a href=""><i class='fa fa-id-badge'></i><span>Profile</span></a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -233,6 +235,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Matakuliah</th>
+                                                        <th>Kelas</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
@@ -241,6 +244,7 @@
                                                 <tbody>
                                                     @foreach($matakuliahs as $matakuliah)
                                                         <tr>
+                                                            <td>{{ $matakuliah->kelas }}</td>
                                                             <td>{{ $matakuliah->nama_matakuliah }}</td>
                                                             <!-- Actions -->
                                                             <td>

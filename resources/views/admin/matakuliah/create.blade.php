@@ -110,9 +110,11 @@
                             <li><a href="{{ route('admin.user') }}"><i class='bx bx-user-circle'></i><span>User</span></a></li>
                             <li><a href="{{ route('admin.jam-masuk') }}"><i class='fa fa-clock-o'></i><span>Jam Masuk</span></a></li>
                             <li class="active"><a href="{{ route('matakuliah.index') }}"><i class='fa fa-clock-o'></i><span>Matakuliah</span></a></li>
+                            <li class="menu-header-title">Kelas</li>
                             <li><a href="{{ route('kelas.index') }}"><i class='fa fa-group'></i><span>Kelas</span></a></li>
+                            <li><a href="{{ route('kelas.index') }}"><i class='fa fa-angle-double-left'></i><span>Input Mahasiswa ke Kelas</span></a></li>
                             <li class="menu-header-title">Profile</li>
-                            <li><a href="{{ route('dosen.profile.index') }}"><i class='fa fa-id-badge'></i><span>Profile</span></a></li>
+                            <li><a href=""><i class='fa fa-id-badge'></i><span>Profile</span></a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -233,8 +235,22 @@
                                                 @csrf
                                                 @method('POST')
                                                 <div class="form-group mb-3">
+                                                    <label for="kelas">Kelas</label>
+                                                    <input type="text" class="form-control" id="kelas" name="kelas" maxlength="15">
+                                                    @error('kelas')
+                                                        <div class="invalid-feedback" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group mb-3">
                                                     <label for="matakuliah">Matakuliah</label>
                                                     <input type="text" class="form-control" id="matakuliah" name="matakuliah" maxlength="15">
+                                                    @error('matakuliah')
+                                                        <div class="invalid-feedback" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
 
                                                 <button type="submit" class="btn btn-primary">Update</button>

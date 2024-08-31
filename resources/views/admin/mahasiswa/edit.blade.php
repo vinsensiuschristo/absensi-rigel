@@ -110,10 +110,11 @@
                             <li><a href="{{ route('admin.user') }}"><i class='bx bx-user-circle'></i><span>User</span></a></li>
                             <li><a href="{{ route('admin.jam-masuk') }}"><i class='fa fa-clock-o'></i><span>Jam Masuk</span></a></li>
                             <li><a href="{{ route('matakuliah.index') }}"><i class='fa fa-clock-o'></i><span>Matakuliah</span></a></li>
+                            <li class="menu-header-title">Kelas</li>
                             <li><a href="{{ route('kelas.index') }}"><i class='fa fa-group'></i><span>Kelas</span></a></li>
+                            <li class="active"><a href="{{ route('mahasiswa.index') }}"><i class='fa fa-angle-double-left'></i><span>Input Mahasiswa ke Kelas</span></a></li>
                             <li class="menu-header-title">Profile</li>
-                            <li class="active"><a href=""><i class='fa fa-id-badge'></i><span>Profile</span></a></li>
-                            <li class="active"><a href="{{ route('matakuliah.index') }}"><i class='fa fa-group'></i><span>Kelas</span></a></li>
+                            <li><a href=""><i class='fa fa-id-badge'></i><span>Profile</span></a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -174,7 +175,7 @@
                             <div class="dropdown-menu profile dropdown-menu-right">
                                 <!-- User Profile Area -->
                                 <div class="user-profile-area">
-                                    <a href="{{ route('profile.edit') }}" class="dropdown-item"><i class="bx bx-wrench font-15"
+                                    <a href="##" class="dropdown-item"><i class="bx bx-wrench font-15"
                                             aria-hidden="true"></i> Profile Setting</a>
                                 </div>
                             </div>
@@ -190,9 +191,16 @@
                         <div class="row">
 
                             {{-- cek if message --}}
+                            @if (session('success'))
+                                <div class="alert alert-success" role="alert">
+                                    <strong>Sukses</strong> {{ session('success') }}
+                                </div>
+                            @endif
+
+                            {{-- cek if message --}}
                             @if (session('status'))
                                 <div class="alert alert-success" role="alert">
-                                    <strong>Sukses</strong> Absensi Berhasil
+                                    <strong>Sukses</strong> {{ session('status') }}
                                 </div>
                             @endif
 
@@ -223,32 +231,47 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center mb-50">
-                                                <h4 class="card-title mb-0">Tambah <span
-                                                        class="break-320-480-none">Profile</span></h4>
-                                                <div class="d-flex">
-                                                    <a href="{{ route('dosen.profile.index') }}" class="btn btn-danger btn-sm mr-2">Kembali</a>
-                                                </div>
+                                                <h4 class="card-title mb-0">Dashboard <span
+                                                    class="break-320-480-none">Input Mahasiswa</span></h4>
+                                                    <div class="d-flex">
+                                                        <a href="{{ route('mahasiswa.index') }}" class="btn btn-danger btn-sm mr-2">Kembali</a>
+                                                    </div>
                                             </div>
 
-                                            <form action="{{ route('dosen.profile.store') }}" method="POST">
+                                            <form action="{{ route('mahasiswa.update', $mahasiswaHasMatakuliah->id) }}" method="POST">
                                                 @csrf
-                                                @method('POST')
+                                                @method('PUT')
                                                 <div class="form-group mb-3">
+                                                    <label for="kelas">Matakuliah</label>
                                                     <select class="form-select" aria-label="Default select example" name="matakuliah"  id="matakuliah">
                                                         <option value="" selected>Matakuliah -</option>
                                                         @foreach ($matakuliahs as $matakuliah)
-                                                            <option value="{{ $matakuliah->id }}">{{ $matakuliah->nama_matakuliah }}</option>
+                                                            <option value="{{ $matakuliah->id }}" @selected(old('matakuliah') == $matakuliah->id)>
+                                                                {{ $matakuliah->nama_matakuliah }}
+                                                            </option>
                                                         @endforeach
                                                       </select>
-
-                                                      @if ($errors->has('matakuliah'))
-                                                        <div class="invalid-feedback" role="alert">
-                                                            {{ $errors->first('matakuliah') }}
-                                                        </div>
-                                                    @endif
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label for="matakuliah">Nama Mahasiswa</label>
+                                                    <select class="form-select" aria-label="Default select example" name="mahasiswa"  id="mahasiswa">
+                                                        <option value="" selected>Nama Mahasiswa -</option>
+                                                        @foreach ($mahasiswas as $mahasiswa)
+                                                            <option value="{{ $mahasiswa->id }}">{{ $mahasiswa->name }}</option>
+                                                        @endforeach
+                                                      </select>
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label for="matakuliah">Kelas</label>
+                                                    <select class="form-select" aria-label="Default select example" name="mahasiswa"  id="mahasiswa">
+                                                        <option value="" selected>Kelas -</option>
+                                                        @foreach ($kelases as $kelas)
+                                                            <option value="{{ $kelas->id }}">{{ $kelas->nama }}</option>
+                                                        @endforeach
+                                                      </select>
                                                 </div>
 
-                                                <button type="submit" class="btn btn-primary">Tambah</button>
+                                                <button type="submit" class="btn btn-primary">Update</button>
                                             </form>
 
                                         </div> <!-- end card body-->
@@ -313,7 +336,6 @@
     <script src="{{ asset('../js/mini-event-calendar.min.js') }}"></script>
     <script src="{{ asset('../js/mini-calendar-active.js') }}"></script>
     <script src="{{ asset('../js/apexchart.min.js') }}"></script>
-    <script src="{{ asset('../js/dashboard-active.js') }}"></script>
     <script src="{{ asset('../js/dashboard-active.js') }}"></script>
     <script src="{{ asset('../js/absent/absent.js') }}"></script>
 

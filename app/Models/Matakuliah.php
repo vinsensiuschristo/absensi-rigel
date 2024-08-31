@@ -10,5 +10,5 @@ class Matakuliah extends Model
     use HasFactory;
 
     protected $table = 'matakuliah';
-    protected $fillable = ['nama_matakuliah'];
+    protected $fillable = ['nama_matakuliah', 'kelas'];
 }
