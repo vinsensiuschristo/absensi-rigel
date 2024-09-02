@@ -244,7 +244,7 @@
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label for="matakuliah">Matakuliah</label>
-                                                    <input type="text" class="form-control" id="matakuliah" name="matakuliah" maxlength="15">
+                                                    <input type="text" class="form-control" id="matakuliah" name="matakuliah">
                                                     @error('matakuliah')
                                                         <div class="invalid-feedback" role="alert">
                                                             {{ $message }}
