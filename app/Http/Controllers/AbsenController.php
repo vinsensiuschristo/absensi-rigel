@@ -48,9 +48,6 @@ class AbsenController extends Controller
             $created_at = gmdate('Y-m-d H:i:s', strtotime('+7 hours'));
             $absen = $request->absen;
             $keterangan = $request->keterangan;
-            $kelas = $request->kelas;
-            $jam = $request->jam;
-
             $matakuliah_id = $request->matakuliah_id;
 
             Absent::create([
@@ -60,8 +57,6 @@ class AbsenController extends Controller
                 'created_at' => $created_at,
                 'keterangan' => $keterangan,
                 'matakuliah_id' => $matakuliah_id,
-                'jam_ke' => $jam,
-                'kelas' => $kelas
             ]);
 
             return redirect()->route('dashboard')->with(['status' => 'Absen Berhasil !']);
@@ -95,8 +90,6 @@ class AbsenController extends Controller
         $file = $folderPath . $fileName;
         Storage::put($file, $image_base64);
 
-        $kelas = $request->kelas;
-        $jam = $request->jam;
         $matakuliah_id = $request->matakuliah_id;
 
         $request->validate([]);
@@ -108,8 +101,6 @@ class AbsenController extends Controller
             'created_at' => $created_at,
             'keterangan' => $keterangan,
             'matakuliah_id' => $matakuliah_id,
-            'jam_ke' => $jam,
-            'kelas' => $kelas
         ]);
 
         //redirect to index

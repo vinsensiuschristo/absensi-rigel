@@ -230,7 +230,6 @@
                                                         <th>NPM</th>
                                                         <th>Name</th>
                                                         <th>Matakuliah</th>
-                                                        <th>Jam Ke</th>
                                                         <th>Waktu Absensi</th>
                                                         <th>Foto</th>
                                                         <th>Status</th>
@@ -245,7 +244,6 @@
                                                             <td>{{ $absent->npm }}</td>
                                                             <td>{{ $absent->name }}</td>
                                                             <td>{{ $absent->nama_matakuliah }}</td>
-                                                            <td>{{ $absent->jam_ke }}</td>
                                                             <td>{{ $absent->created_at }}</td>
                                                             <td><a href="{{ asset('storage/image/uploads/' . $absent->photo) }}" target="_blank"><img src="{{ asset('storage/image/uploads/' . $absent->photo) }}" alt="photo" width="200px"></a></td>
                                                             <td>{{ $absent->status }}</td>

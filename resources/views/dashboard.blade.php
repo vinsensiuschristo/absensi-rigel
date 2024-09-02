@@ -264,17 +264,6 @@
                                                     <label id="lastname-error" class="error mt-2 text-danger" for="lastname">Masukan Kehadiran Dengan Benar</label>
                                                 @enderror
                                             </div>
-                                            <div class="form-group mb-3">
-                                                <select class="form-select" aria-label="Default select example" name="kelas"  id="kelas">
-                                                    <option value="" selected>Kelas -</option>
-                                                    @foreach ($kelases as $kelas)
-                                                        <option value="{{ $kelas->id }}">{{ $kelas->nama }}</option>
-                                                    @endforeach 
-                                                  </select>
-                                                  @error('kelas')
-                                                    <label id="lastname-error" class="error mt-2 text-danger" for="lastname">Masukan Kelas Dengan Benar</label>
-                                                @enderror
-                                            </div>
 
                                             <div class="form-group mb-3">
                                                 <select class="form-select" aria-label="Default select example" name="matakuliah_id"  id="matakuliah_id">
@@ -287,19 +276,7 @@
                                                     <label id="lastname-error" class="error mt-2 text-danger" for="lastname">Masukan Matakuliah Dengan Benar</label>
                                                 @enderror
                                             </div>
-
-                                            <div class="form-group mb-3">
-                                                <select class="form-select" aria-label="Default select example" name="jam"  id="jam" class="@error('jam') is-invalid @enderror">
-                                                    <option value="" selected>Jam Ke -</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                  </select>
-                                                  @error('jam_ke')
-                                                    <label id="lastname-error" class="error mt-2 text-danger" for="lastname">Masukan Jam Ke Dengan Benar</label>
-                                                @enderror
-                                            </div>
+                                            
                                             <div class="form-group mb-3">
                                                 <input type="text" class="form-control" id="keterangan" name="keterangan"
                                                     placeholder="Keterangan" style="visibility:hidden">
