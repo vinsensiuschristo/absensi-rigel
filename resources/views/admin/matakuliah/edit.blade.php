@@ -237,10 +237,6 @@
                                             <form action="{{ route('matakuliah.update', $matakuliah->id) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
-                                                <div class="form-group mb-3">
-                                                    <label for="kelas">Kelas</label>
-                                                    <input type="text" class="form-control" id="kelas" name="kelas" value="{{ $matakuliah->kelas }}">
-                                                </div>
                                                 
                                                 <div class="form-group mb-3">
                                                     <label for="nama_matakuliah">Matakuliah</label>

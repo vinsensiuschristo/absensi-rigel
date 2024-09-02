@@ -234,15 +234,6 @@
                                                 @csrf
                                                 @method('POST')
                                                 <div class="form-group mb-3">
-                                                    <label for="kelas">Kelas</label>
-                                                    <input type="text" class="form-control" id="kelas" name="kelas">
-                                                    @error('kelas')
-                                                        <div class="invalid-feedback" role="alert">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                                <div class="form-group mb-3">
                                                     <label for="matakuliah">Matakuliah</label>
                                                     <input type="text" class="form-control" id="matakuliah" name="matakuliah">
                                                     @error('matakuliah')

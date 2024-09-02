@@ -32,12 +32,10 @@ class MatakuliahController extends Controller
         // dd($request->all());
         $validatedData = $request->validate([
             'nama_matakuliah' => 'required',
-            'kelas' => 'required',
         ]);
 
         Matakuliah::create([
             'nama_matakuliah' => $validatedData['nama_matakuliah'],
-            'kelas' => $validatedData['kelas'],
         ]);
 
         return redirect()->route('matakuliah.index')->with('success', 'Matakuliah berhasil ditambahkan');
@@ -67,13 +65,11 @@ class MatakuliahController extends Controller
     {
         $validatedData = $request->validate([
             'nama_matakuliah' => 'required',
-            'kelas' => 'required',
         ]);
 
         $matakuliah = Matakuliah::findOrFail($id);
         $matakuliah->update([
             'nama_matakuliah' => $validatedData['nama_matakuliah'],
-            'kelas' => $validatedData['kelas'],
         ]);
 
         return redirect()->route('matakuliah.index')->with('success', 'Matakuliah berhasil diubah');
