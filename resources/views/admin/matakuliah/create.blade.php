@@ -114,7 +114,6 @@
                             <li><a href="{{ route('kelas.index') }}"><i class='fa fa-group'></i><span>Kelas</span></a></li>
                             <li><a href="{{ route('kelas.index') }}"><i class='fa fa-angle-double-left'></i><span>Input Mahasiswa ke Kelas</span></a></li>
                             <li class="menu-header-title">Profile</li>
-                            <li><a href=""><i class='fa fa-id-badge'></i><span>Profile</span></a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -236,7 +235,7 @@
                                                 @method('POST')
                                                 <div class="form-group mb-3">
                                                     <label for="kelas">Kelas</label>
-                                                    <input type="text" class="form-control" id="kelas" name="kelas" maxlength="15">
+                                                    <input type="text" class="form-control" id="kelas" name="kelas">
                                                     @error('kelas')
                                                         <div class="invalid-feedback" role="alert">
                                                             {{ $message }}

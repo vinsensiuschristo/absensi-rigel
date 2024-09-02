@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('mahasiswa_id');
             $table->unsignedBigInteger('matakuliah_id');
+            $table->unsignedBigInteger('kelas_id');
             $table->timestamps();
 
+            $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');
             $table->foreign('mahasiswa_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('matakuliah_id')->references('id')->on('matakuliah')->onDelete('cascade');
         });

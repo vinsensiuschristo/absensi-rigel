@@ -114,7 +114,6 @@
                             <li><a href="{{ route('kelas.index') }}"><i class='fa fa-group'></i><span>Kelas</span></a></li>
                             <li><a href="{{ route('kelas.index') }}"><i class='fa fa-angle-double-left'></i><span>Input Mahasiswa ke Kelas</span></a></li>
                             <li class="menu-header-title">Profile</li>
-                            <li><a href=""><i class='fa fa-id-badge'></i><span>Profile</span></a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -240,12 +239,12 @@
                                                 @method('PUT')
                                                 <div class="form-group mb-3">
                                                     <label for="kelas">Kelas</label>
-                                                    <input type="text" class="form-control" id="kelas" name="kelas" maxlength="15" value="{{ $matakuliah->kelas }}">
+                                                    <input type="text" class="form-control" id="kelas" name="kelas" value="{{ $matakuliah->kelas }}">
                                                 </div>
                                                 
                                                 <div class="form-group mb-3">
                                                     <label for="nama_matakuliah">Matakuliah</label>
-                                                    <input type="text" class="form-control" id="nama_matakuliah" name="nama_matakuliah" maxlength="15" value="{{ $matakuliah->nama_matakuliah }}">
+                                                    <input type="text" class="form-control" id="nama_matakuliah" name="nama_matakuliah"  value="{{ $matakuliah->nama_matakuliah }}">
                                                 </div>
 
                                                 <button type="submit" class="btn btn-primary">Update</button>

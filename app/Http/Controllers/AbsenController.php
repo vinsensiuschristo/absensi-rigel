@@ -7,15 +7,28 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Absent;
+use App\Models\Kelas;
 use App\Models\Matakuliah;
 use App\Models\Time;
+use Illuminate\Support\Facades\DB;
 
 class AbsenController extends Controller
 {
     public function index()
     {
         $matakuliahs = Matakuliah::all();
-        return view('dashboard', compact('matakuliahs'));
+
+        // buat query buat munculin matakuliah yang ada di mahasiswa_has_matakuliah
+        $matkuls = DB::table('mahasiswa_has_matakuliah')
+            ->join('matakuliah', 'mahasiswa_has_matakuliah.matakuliah_id', '=', 'matakuliah.id')
+            ->join('kelas', 'mahasiswa_has_matakuliah.kelas_id', '=', 'kelas.id')
+            ->select('matakuliah.id', 'matakuliah.nama_matakuliah', 'kelas.nama', 'mahasiswa_has_matakuliah.id as mahasiswa_has_matakuliah_id')
+            ->where('mahasiswa_has_matakuliah.mahasiswa_id', '=', auth()->user()->id)
+            ->get();
+
+        $kelases = Kelas::all();
+
+        return view('dashboard', compact('matakuliahs', 'matkuls', 'kelases'));
     }
 
     public function store(Request $request)

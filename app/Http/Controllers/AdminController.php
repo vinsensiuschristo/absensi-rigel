@@ -13,10 +13,10 @@ class AdminController extends Controller
     public function index()
     {
         $absenData = Absent::join('users', 'absents.user_id', '=', 'users.id')
-            ->select('absents.*', 'users.name', 'users.npm')
+            ->join('matakuliah', 'absents.matakuliah_id', '=', 'matakuliah.id')
+            ->select('absents.*', 'users.name', 'users.npm', 'matakuliah.nama_matakuliah')
             ->get();
 
-        // $matakuliahs = Matakuliah::all();
         return view('admin.index', ['absents' => $absenData]);
     }
 

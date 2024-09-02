@@ -10,5 +10,5 @@ class MahasiswaHasMatakuliah extends Model
     use HasFactory;
 
     protected $table = 'mahasiswa_has_matakuliah';
-    protected $fillable = ['mahasiswa_id', 'matakuliah_id'];
+    protected $fillable = ['mahasiswa_id', 'matakuliah_id', 'kelas_id'];
 }

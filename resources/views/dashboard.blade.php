@@ -267,10 +267,9 @@
                                             <div class="form-group mb-3">
                                                 <select class="form-select" aria-label="Default select example" name="kelas"  id="kelas">
                                                     <option value="" selected>Kelas -</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
+                                                    @foreach ($kelases as $kelas)
+                                                        <option value="{{ $kelas->id }}">{{ $kelas->nama }}</option>
+                                                    @endforeach 
                                                   </select>
                                                   @error('kelas')
                                                     <label id="lastname-error" class="error mt-2 text-danger" for="lastname">Masukan Kelas Dengan Benar</label>
@@ -280,8 +279,8 @@
                                             <div class="form-group mb-3">
                                                 <select class="form-select" aria-label="Default select example" name="matakuliah_id"  id="matakuliah_id">
                                                     <option value="" selected>Matakuliah -</option>
-                                                    @foreach ($matakuliahs as $matakuliah)
-                                                        <option value="{{ $matakuliah->id }}">{{ $matakuliah->nama_matakuliah }}</option>
+                                                    @foreach ($matkuls as $matkul)
+                                                        <option value="{{ $matkul->mahasiswa_has_matakuliah_id }}">{{ $matkul->nama }} - {{ $matkul->nama_matakuliah }}</option>
                                                     @endforeach 
                                                   </select>
                                                   @error('matakuliah_id')
