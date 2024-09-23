@@ -18,6 +18,11 @@ Route::get('/dosen/login', [DosenController::class, 'login'])->name('dosen.login
 
 Route::get('/dashboard', [AbsenController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
+// loginAdmin
+Route::get('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');
+Route::post('/admin/login', [AdminController::class, 'adminLoginPost'])->name('admin.login.post');
+Route::get('/admin/dashboard', [AdminController::class, 'adminDashboard'])->name('admin.dashboard');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

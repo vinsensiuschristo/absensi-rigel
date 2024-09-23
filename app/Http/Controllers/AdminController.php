@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Absent;
+use App\Models\Admin;
 use App\Models\Matakuliah;
 use App\Models\Time;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -65,5 +68,35 @@ class AdminController extends Controller
 
 
         return redirect()->route('admin.user')->with('success', 'User berhasil dihapus');
+    }
+
+    // Login Admin
+    public function adminLogin()
+    {
+        return view('admin.login.index');
+    }
+
+    public function adminLoginPost(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        $db = Admin::where('email', $credentials['email'])->first();
+
+        if (!$db) {
+            return redirect()->back()->with('error', 'Email tidak terdaftar');
+        }
+
+        $password = $credentials['password'];
+
+        $dbPassword = $db->password;
+
+        if (Hash::check($password, $dbPassword)) {
+            return redirect()->route('admin.login.dashboard');
+        }
+
+        return redirect()->back()->with('error', 'Email atau Password salah');
     }
 }
