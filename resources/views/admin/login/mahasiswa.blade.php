@@ -107,7 +107,7 @@
                         <ul class="sidebar-menu" data-widget="tree">
                             <li class="menu-header-title">Dashboard</li>
                             <li><a href="{{ route('superadmin.dosen') }}"><i class='bx bx-user-circle'></i><span>Dosen</span></a></li>
-                            <li><a href="{{ route('superadmin.mahasiswa') }}"><i class='bx bx-user-circle'></i><span>Mahasiswa</span></a></li>
+                            <li class="active"><a href="{{ route('superadmin.mahasiswa') }}"><i class='bx bx-user-circle'></i><span>Mahasiswa</span></a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -220,6 +220,61 @@
                                     <strong>Sukses</strong> {{ session('error') }}
                                 </div>
                             @endif
+                        
+                            <div class="row">
+                                <div class="col-12 box-margin">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center mb-50">
+                                                <h4 class="card-title mb-0">Dashboard List<span
+                                                    class="break-320-480-none">Mahasiswa</span></h4>
+                                            <div class="d-flex">
+                                                <a href="{{ route('superadmin.mahasiswa.create') }}" class="btn btn-primary btn-sm mr-2">Tambah Mahasiswa</a>
+                                            </div>
+                                            </div>
+    
+                                            <table id="basic-datatable" class="table dt-responsive nowrap w-100">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($mahasiswas as $mahasiswa)
+                                                    <tr>
+                                                        <td>{{ $mahasiswa->name }}</td>
+                                                        <td>{{ $mahasiswa->email }}</td>
+                                                        <!-- Actions -->
+                                                        <td>
+                                                            <a href="{{ route('superadmin.mahasiswa.show', $mahasiswa->id) }}" class="action-item mr-2" data-bs-toggle="tooltip" title="Show">
+                                                                <i class="fa fa-eye"></i>
+                                                            </a>
+                                                            <a href="{{ route('superadmin.mahasiswa.edit', $mahasiswa->id) }}" class="action-item mr-2" data-bs-toggle="tooltip" title="Edit">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                            <form action="{{ route('superadmin.mahasiswa.destroy', $mahasiswa->id) }}" method="POST">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <div class="actions ml-3">
+                                                                    <button type="submit" class="action-item mr-2" data-bs-toggle="tooltip" title="Delete">
+                                                                        <i class="fa fa-trash"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+    
+                                        </div> <!-- end card body-->
+                                    </div> <!-- end card -->
+                                </div><!-- end col-->
+                            </div>
+
 
                     </div>
                     <!-- / .row -->

@@ -106,7 +106,7 @@
                     <nav>
                         <ul class="sidebar-menu" data-widget="tree">
                             <li class="menu-header-title">Dashboard</li>
-                            <li><a href="{{ route('superadmin.dosen') }}"><i class='bx bx-user-circle'></i><span>Dosen</span></a></li>
+                            <li class="active"><a href="{{ route('superadmin.dosen') }}"><i class='bx bx-user-circle'></i><span>Dosen</span></a></li>
                             <li><a href="{{ route('superadmin.mahasiswa') }}"><i class='bx bx-user-circle'></i><span>Mahasiswa</span></a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
@@ -217,9 +217,58 @@
                             @endif
                             @if (session('error'))
                                 <div class="alert alert-danger" role="alert">
-                                    <strong>Sukses</strong> {{ session('error') }}
+                                    <strong>Error</strong> {{ session('error') }}
                                 </div>
                             @endif
+                        
+                            <div class="row">
+                                <div class="col-12 box-margin">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center mb-50">
+                                                <h4 class="card-title mb-0">Lihat <span
+                                                    class="break-320-480-none">Mahasiswa</span></h4>
+                                            <div class="d-flex">
+                                                <a href="{{ route('superadmin.dosen') }}" class="btn btn-danger btn-sm mr-2">Kembali</a>
+                                            </div>
+                                            </div>
+    
+                                                <div class="form-group mb-3">
+                                                    <label for="npm">NPM</label>
+                                                    <input type="number" class="form-control" id="npm" name="npm" value="{{ $user->npm }}" disabled>
+                                                    @error('npm')
+                                                        <div class="invalid-feedback" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group mb-3">
+                                                    <label for="name">Nama</label>
+                                                    <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}" disabled>
+                                                    @error('name')
+                                                        <div class="invalid-feedback" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group mb-3">
+                                                    <label for="email">Email</label>
+                                                    <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}" disabled>
+                                                    @error('email')
+                                                        <div class="invalid-feedback" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+
+                                                <a href="{{ route('superadmin.mahasiswa.edit', $user->id) }}" class="btn btn-danger btn-sm mr-2">Edit</a>
+                                        </div> <!-- end card body-->
+                                    </div> <!-- end card -->
+                                </div><!-- end col-->
+                            </div>
+
 
                     </div>
                     <!-- / .row -->
@@ -261,17 +310,17 @@
 
 
     <!-- Plugins Js -->
-    <script src="../js/jquery.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/bundle.js"></script>
+    <script src="{{ asset('../js/jquery.min.js') }}"></script>
+    <script src="{{ asset('../js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('../js/bundle.js') }}"></script>
 
     <!-- Active JS -->
-    <script src="../js/settings.js"></script>
-    <script src="../js/scrool-bar.js"></script>
-    <script src="../js/todo-list.js"></script>
+    <script src="{{ asset('../js/settings.js') }}"></script>
+    <script src="{{ asset('../js/scrool-bar.js') }}"></script>
+    <script src="{{ asset('../js/todo-list.js') }}"></script>
     <!-- DATE TIME -->
-    <script src="../js/waktu.js"></script>
-    <script src="../js/active.js"></script>
+    <script src="{{ asset('../js/waktu.js') }}"></script>
+    <script src="{{ asset('../js/active.js') }}"></script>
 
     <!-- Inject JS -->
     <script src="{{ asset('../js/dataTable/jquery.datatables.min.js') }}"></script>

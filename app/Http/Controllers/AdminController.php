@@ -94,9 +94,14 @@ class AdminController extends Controller
         $dbPassword = $db->password;
 
         if (Hash::check($password, $dbPassword)) {
-            return redirect()->route('admin.login.dashboard');
+            return redirect()->route('admin.dashboard');
         }
 
         return redirect()->back()->with('error', 'Email atau Password salah');
+    }
+
+    public function superadminDashboard()
+    {
+        return view('admin.login.dashboard');
     }
 }

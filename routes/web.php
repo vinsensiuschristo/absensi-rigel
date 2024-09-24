@@ -8,6 +8,7 @@ use App\Http\Controllers\DosenProfileController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MahasiswaHasMatakuliahController;
 use App\Http\Controllers\MatakuliahController;
+use App\Http\Controllers\SuperadminController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,7 +22,7 @@ Route::get('/dashboard', [AbsenController::class, 'index'])->middleware(['auth',
 // loginAdmin
 Route::get('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'adminLoginPost'])->name('admin.login.post');
-Route::get('/admin/dashboard', [AdminController::class, 'adminDashboard'])->name('admin.dashboard');
+// Route::get('/admin/dashboard', [AdminController::class, 'adminDashboard'])->name('admin.dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -53,6 +54,29 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/dosen/kelas', KelasController::class);
     Route::resource('/dosen/mahasiswa', MahasiswaHasMatakuliahController::class);
+
+    // superadmin
+    Route::get('/superadmin/dashboard', [SuperadminController::class, 'index'])->name('superadmin.dashboard');
+    Route::get('/superadmin/mahasiswa', [SuperadminController::class, 'mahasiswa'])->name('superadmin.mahasiswa');
+    Route::get('/superadmin/dosen', [SuperadminController::class, 'dosen'])->name('superadmin.dosen');
+    // create
+    Route::get('/superadmin/dosen/create', [SuperadminController::class, 'createDosen'])->name('superadmin.dosen.create');
+    Route::get('/superadmin/mahasiswa/create', [SuperadminController::class, 'createMahasiswa'])->name('superadmin.mahasiswa.create');
+    // store
+    Route::post('/superadmin/dosen/create', [SuperadminController::class, 'storeDosen'])->name('superadmin.dosen.store');
+    Route::post('/superadmin/mahasiswa/create', [SuperadminController::class, 'storeMahasiswa'])->name('superadmin.mahasiswa.store');
+    // edit
+    Route::get('/superadmin/dosen/{id}/edit', [SuperadminController::class, 'editDosen'])->name('superadmin.dosen.edit');
+    Route::get('/superadmin/mahasiswa/{id}/edit', [SuperadminController::class, 'editMahasiswa'])->name('superadmin.mahasiswa.edit');
+    // update
+    Route::patch('/superadmin/dosen/{id}/edit', [SuperadminController::class, 'updateDosen'])->name('superadmin.dosen.update');
+    Route::patch('/superadmin/mahasiswa/{id}/edit', [SuperadminController::class, 'updateMahasiswa'])->name('superadmin.mahasiswa.update');
+    // show
+    Route::get('/superadmin/dosen/{id}', [SuperadminController::class, 'showDosen'])->name('superadmin.dosen.show');
+    Route::get('/superadmin/mahasiswa/{id}', [SuperadminController::class, 'showMahasiswa'])->name('superadmin.mahasiswa.show');
+    // delete
+    Route::delete('/superadmin/mahasiswa/{id}', [SuperadminController::class, 'destroy'])->name('superadmin.mahasiswa.destroy');
+    Route::delete('/superadmin/dosen/{id}', [SuperadminController::class, 'destroy'])->name('superadmin.dosen.destroy');
 });
 
 require __DIR__ . '/auth.php';
