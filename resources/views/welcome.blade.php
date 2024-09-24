@@ -72,7 +72,7 @@
                                     <div class="form-group d-flex justify-content-between align-items-center mb-3">
                                         <div class="checkbox d-inline mb-0">
                                         </div>
-                                        <span><a class="font-12 text-success" href="forget-password.html">Forgot your password?</a></span>
+                                        <span><a class="font-12 text-success" href="{{ route('password.request') }}">Forgot your password?</a></span>
                                     </div>
 
                                     <div class="form-group mb-0">
