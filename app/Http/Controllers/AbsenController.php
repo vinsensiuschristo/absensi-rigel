@@ -22,7 +22,7 @@ class AbsenController extends Controller
         $matkuls = DB::table('mahasiswa_has_matakuliah')
             ->join('matakuliah', 'mahasiswa_has_matakuliah.matakuliah_id', '=', 'matakuliah.id')
             ->join('kelas', 'mahasiswa_has_matakuliah.kelas_id', '=', 'kelas.id')
-            ->select('matakuliah.id', 'matakuliah.nama_matakuliah', 'kelas.nama', 'mahasiswa_has_matakuliah.id as mahasiswa_has_matakuliah_id')
+            ->select('matakuliah.id', 'matakuliah.nama_matakuliah', 'kelas.nama', 'mahasiswa_has_matakuliah.matakuliah_id as mahasiswa_has_matakuliah_id')
             ->where('mahasiswa_has_matakuliah.mahasiswa_id', '=', auth()->user()->id)
             ->get();
 
@@ -49,6 +49,8 @@ class AbsenController extends Controller
             $absen = $request->absen;
             $keterangan = $request->keterangan;
             $matakuliah_id = $request->matakuliah_id;
+
+            // dd($request->all());
 
             Absent::create([
                 'user_id' => auth()->user()->id,
@@ -93,6 +95,8 @@ class AbsenController extends Controller
         $matakuliah_id = $request->matakuliah_id;
 
         $request->validate([]);
+
+        // dd($request->all());
 
         Absent::create([
             'user_id' => auth()->user()->id,
